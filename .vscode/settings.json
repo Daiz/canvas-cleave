@@ -1,0 +1,20 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 80,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "data/": true,
+    "dist/": true,
+    "lib/": true,
+    "node_modules/": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}
