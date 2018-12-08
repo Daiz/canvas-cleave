@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
+    "lib": ["es2018"],
     "moduleResolution": "node",
+    "jsx": "react",
     "strict": true,
     "outDir": "./lib",
     "esModuleInterop": true,
