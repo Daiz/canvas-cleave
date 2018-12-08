@@ -1,5 +1,3 @@
-type PixelRGB24 = Buffer; // 4-byte uint8 buffer
-
 // bytes (uint8) per pixel
 const BYTES_IN_RGB24 = 3;
 
@@ -46,7 +44,7 @@ export class NodeImageData {
     return { x, y, target };
   }
 
-  _getPixel(xx: number, yy: number): PixelRGB24 {
+  _getPixel(xx: number, yy: number): Buffer {
     const { target } = this.getPosition(xx, yy);
     if (this.data) {
       return this.data.slice(target, target + BYTES_IN_RGB24);
@@ -55,7 +53,7 @@ export class NodeImageData {
     }
   }
 
-  _setPixel(xx: number, yy: number, px: PixelRGB24) {
+  _setPixel(xx: number, yy: number, px: Buffer) {
     const { target } = this.getPosition(xx, yy);
     if (px.length !== BYTES_IN_RGB24) {
       throw new Error("Invalid pixel data provided. Must be exactly 4 bytes.");
