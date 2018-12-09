@@ -1,3 +1,4 @@
+import { BufferWithInfo, Canvas } from "./canvas";
 import { ImageData } from "./imagedata";
 import sharp = require("sharp");
 
@@ -78,8 +79,10 @@ export function loadImage(source: string): Promise<Image> {
 
 export async function saveImage(
   target: string,
-  { info, data }: BufferWithInfo
+  image: Canvas | BufferWithInfo
 ) {
+  if (image instanceof Canvas) image = image._toBuffer(true);
+  const { data, info } = image;
   const { width, height } = info;
   return sharp(data, {
     raw: {
