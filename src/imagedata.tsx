@@ -1,7 +1,7 @@
 // bytes (uint8) per pixel
 const BYTES_IN_RGB24 = 3;
 
-export class NodeImageData {
+export class ImageData {
   width: number = 0;
   height: number = 0;
   data: Buffer | null = null;

@@ -1,5 +1,5 @@
-import { NodeImage } from "./image";
-import { NodeImageData } from "./imagedata";
+import { Image } from "./image";
+import { ImageData } from "./imagedata";
 
 type RenderingContext = "2d";
 
@@ -12,13 +12,13 @@ export interface BufferWithInfo {
   data: Buffer;
 }
 
-export class NodeCanvas {
-  private __context: NodeCanvasRenderingContext2D;
+export class Canvas {
+  private __context: CanvasRenderingContext2D;
 
   constructor(width?: number, height?: number) {
     width = width || 0;
     height = height || 0;
-    this.__context = new NodeCanvasRenderingContext2D(width, height);
+    this.__context = new CanvasRenderingContext2D(width, height);
     this.width = width;
     this.height = height;
   }
@@ -56,32 +56,32 @@ export class NodeCanvas {
   }
 }
 
-export class NodeCanvasRenderingContext2D {
+export class CanvasRenderingContext2D {
   width: number;
   height: number;
-  private __data: NodeImageData;
+  private __data: ImageData;
 
   constructor();
-  constructor(image: NodeImage);
-  constructor(imageData: NodeImageData);
+  constructor(image: Image);
+  constructor(imageData: ImageData);
   constructor(width: number, height: number);
-  constructor(data?: NodeImage | NodeImageData | number, height?: number) {
-    if (data instanceof NodeImage) {
+  constructor(data?: Image | ImageData | number, height?: number) {
+    if (data instanceof Image) {
       data = data._getImageData();
     }
-    if (data instanceof NodeImageData) {
+    if (data instanceof ImageData) {
       this.width = data.width;
       this.height = data.height;
       this.__data = data;
     } else {
       this.width = data || 0;
       this.height = height || 0;
-      this.__data = new NodeImageData(this.width, this.height);
+      this.__data = new ImageData(this.width, this.height);
     }
   }
 
-  putImageData(data: NodeImage | NodeImageData) {
-    if (data instanceof NodeImage) {
+  putImageData(data: Image | ImageData) {
+    if (data instanceof Image) {
       data = data._getImageData();
     }
     this.width = data.width;
@@ -94,9 +94,9 @@ export class NodeCanvasRenderingContext2D {
   }
 
   // note: doesn't actually support alpha - pixels get replaced, not overlaid
-  drawImage(image: NodeImage, dx: number, dy: number): void;
+  drawImage(image: Image, dx: number, dy: number): void;
   drawImage(
-    image: NodeImage,
+    image: Image,
     sx: number,
     sy: number,
     sw: number,
@@ -108,7 +108,7 @@ export class NodeCanvasRenderingContext2D {
   ): void;
   // actual implementation
   drawImage(
-    image: NodeImage,
+    image: Image,
     sx: number,
     sy: number,
     sw?: number,

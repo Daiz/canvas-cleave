@@ -1,15 +1,14 @@
-import { BufferWithInfo } from "./canvas";
-import { NodeImageData } from "./imagedata";
+import { ImageData } from "./imagedata";
 import sharp = require("sharp");
 
 const noop = function noop() {};
 const LOAD_IMAGE_OPTS = { resolveWithObject: true };
 
-export class NodeImage {
+export class Image {
   private __width: number = 0;
   private __height: number = 0;
   private __src: string = "";
-  private __data: NodeImageData;
+  private __data: ImageData;
   private __loaded: boolean = false;
 
   get width() {
@@ -26,7 +25,7 @@ export class NodeImage {
   }
 
   constructor() {
-    this.__data = new NodeImageData();
+    this.__data = new ImageData();
   }
 
   get src() {
@@ -68,9 +67,9 @@ export class NodeImage {
   }
 }
 
-export function loadImage(source: string): Promise<NodeImage> {
+export function loadImage(source: string): Promise<Image> {
   return new Promise((resolve, reject) => {
-    const img = new NodeImage();
+    const img = new Image();
     img.src = source;
     img.onload = () => resolve(img);
     img.onerror = reject;
