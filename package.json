@@ -1,21 +1,24 @@
 {
-  "name": "canvas-shim",
+  "name": "canvas-cleave",
   "version": "0.0.0",
-  "description": "Minimal shim for HTML5 Canvas drawImage (without resizing)",
+  "description": "100% JS Node.js shim for HTML5 Canvas drawImage (without resizing)",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc --watch"
+    "test": "jest",
+    "start": "tsc --watch",
+    "docs": "tsc --build && api-extractor run && api-documenter markdown --input-folder etc --output-folder docs"
   },
   "author": "Daiz <daiz@limit.media>",
   "license": "UNLICENSED",
   "private": true,
-  "dependencies": {
-    "sharp": "^0.21.1"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^24.0.0",
     "@types/sharp": "^0.21.0",
+    "jest": "^24.1.0",
     "prettier": "^1.15.3",
+    "sharp": "^0.21.1",
+    "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2",
