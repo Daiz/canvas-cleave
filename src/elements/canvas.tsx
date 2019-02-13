@@ -1,11 +1,11 @@
-import { NodeImageBitmap } from "./imagebitmap";
+import { NodeImageBitmap } from "../imagebitmap";
 import {
   ICanvas,
   IRenderingContextOptions,
   IRenderingContextType
-} from "./interfaces";
-import { NodeImageBitmapRenderingContext } from "./rendering-context/bitmap";
-import { NodeCanvasRenderingContext2D } from "./rendering-context/canvas2d";
+} from "../interfaces";
+import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
+import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 
 export class NodeCanvas implements ICanvas {
   private $bitmap: NodeImageBitmap;

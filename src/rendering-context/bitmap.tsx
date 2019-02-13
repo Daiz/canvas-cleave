@@ -1,4 +1,4 @@
-import { NodeCanvas } from "../canvas";
+import { NodeCanvas } from "../elements/canvas";
 import { NodeImageBitmap } from "../imagebitmap";
 import { IImageBitmapRenderingContext } from "../interfaces";
 

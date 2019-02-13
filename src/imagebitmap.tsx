@@ -1,4 +1,4 @@
-import { NodeImage } from "./image";
+import { NodeImage } from "./elements/image";
 import { IImageBitmap, IImageData } from "./interfaces";
 
 export interface RawImageInfo {

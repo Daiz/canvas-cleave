@@ -1,5 +1,5 @@
-import { NodeCanvas } from "../canvas";
-import { NodeImage } from "../image";
+import { NodeCanvas } from "../elements/canvas";
+import { NodeImage } from "../elements/image";
 import { isImageBitmap, NodeImageBitmap } from "../imagebitmap";
 import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 

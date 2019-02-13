@@ -1,5 +1,5 @@
-import { NodeImageBitmap } from "./imagebitmap";
-import { IImage } from "./interfaces";
+import { NodeImageBitmap } from "../imagebitmap";
+import { IImage } from "../interfaces";
 
 export class NodeImage implements IImage {
   private $bitmap: NodeImageBitmap;
