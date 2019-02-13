@@ -1,94 +1,48 @@
-import { BufferWithInfo, Canvas } from "./canvas";
-import { ImageData } from "./imagedata";
-import sharp = require("sharp");
+import { NodeImageBitmap } from "./imagebitmap";
+import { IImage } from "./interfaces";
 
-const noop = function noop() {};
-const LOAD_IMAGE_OPTS = { resolveWithObject: true };
+export class NodeImage implements IImage {
+  private $bitmap: NodeImageBitmap;
+  private $width: number = 0;
+  private $height: number = 0;
+  private $complete: boolean = true;
+  public src: string = "";
 
-export class Image {
-  private __width: number = 0;
-  private __height: number = 0;
-  private __src: string = "";
-  private __data: ImageData;
-  private __loaded: boolean = false;
+  get complete() {
+    return this.$complete;
+  }
 
   get width() {
-    return this.__width;
+    return this.$width || this.$bitmap.width;
   }
-  get naturalWidth() {
-    return this.__width;
-  }
+
   get height() {
-    return this.__height;
+    return this.$height || this.$bitmap.height;
   }
+
+  set width(value: number) {
+    this.$width = value;
+  }
+
+  set height(value: number) {
+    this.$height = value;
+  }
+
+  get naturalWidth() {
+    return this.$bitmap.width;
+  }
+
   get naturalHeight() {
-    return this.__height;
+    return this.$bitmap.height;
   }
 
-  constructor() {
-    this.__data = new ImageData();
+  constructor();
+  constructor(bitmap: NodeImageBitmap);
+  constructor(bitmap?: NodeImageBitmap) {
+    this.$bitmap = bitmap || new NodeImageBitmap();
   }
 
-  get src() {
-    return this.__src;
+  _getImageBitmap() {
+    return this.$bitmap;
   }
-  set src(source: string) {
-    this.__src = source;
-    this.__loaded = false;
-    this.__data._unload();
-    this.loadImage(source);
-  }
-
-  private async loadImage(source: string) {
-    try {
-      const { info, data } = await sharp(source)
-        .removeAlpha()
-        .raw()
-        .toBuffer(LOAD_IMAGE_OPTS as { resolveWithObject: true });
-      this.__width = info.width;
-      this.__height = info.height;
-      this.__data._putImageData(this.__width, this.__height, data);
-      this.__loaded = true;
-      this.onload();
-      return true;
-    } catch (err) {
-      this.onerror(err);
-      return false;
-    }
-  }
-
-  // placeholders for onload/onerror
-  onload: () => any = noop;
-  onerror: (err?: Error) => any = noop;
-
-  // non-standard methods for functional shimming purposes
-
-  _getImageData() {
-    return this.__data;
-  }
-}
-
-export function loadImage(source: string): Promise<Image> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = source;
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-  });
-}
-
-export async function saveImage(
-  target: string,
-  image: Canvas | BufferWithInfo
-) {
-  if (image instanceof Canvas) image = image._toBuffer(true);
-  const { data, info } = image;
-  const { width, height } = info;
-  return sharp(data, {
-    raw: {
-      width,
-      height,
-      channels: 3
-    }
-  }).toFile(target);
 }
