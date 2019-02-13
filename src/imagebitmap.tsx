@@ -1,13 +1,13 @@
 import { NodeImage } from "./elements/image";
 import { IImageBitmap, IImageData } from "./interfaces";
 
-export interface RawImageInfo {
+interface RawImageInfo {
   readonly width: number;
   readonly height: number;
   readonly channels: number;
 }
 
-export interface RawImage {
+export interface IRawImage {
   readonly info: RawImageInfo;
   readonly data: Buffer;
 }
@@ -57,7 +57,7 @@ export class NodeImageBitmap implements IImageBitmap {
     else return this.$height;
   }
 
-  constructor(input?: RawImage) {
+  constructor(input?: IRawImage) {
     if (!input) {
       this.$width = 0;
       this.$height = 0;
@@ -350,7 +350,7 @@ export class NodeImageBitmap implements IImageBitmap {
     return new NodeImage(this);
   }
 
-  _toRawImage(): RawImage {
+  _toRawImage(): IRawImage {
     const channels = this._hasAlpha ? 4 : 3;
     const width = this.$width;
     const height = this.$height;
