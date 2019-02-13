@@ -33,6 +33,8 @@ const INVALID_RAW_IMAGE_SIZE_ERROR =
 const RGB24_SIZE_ERROR = "RGB24 pixel array must have exactly 3 values.";
 const RGB32_SIZE_ERROR = "RGB32 pixel array must have exactly 4 values.";
 const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
+const DRAW_IMAGE_NO_RESIZE_ERROR =
+  "Resizing is not supported. Source and target draw rects must be equal in size.";
 
 const RGB24_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0]);
 const RGB32_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0, 255]);
@@ -44,7 +46,7 @@ export function isImageBitmap(bitmap: any): bitmap is NodeImageBitmap {
 }
 
 export class NodeImageBitmap implements IImageBitmap {
-  private readonly $rgbBlack = new Uint8ClampedArray(RGB24_BLACK_PIXEL);
+  private readonly $rgbOutOfBounds = new Uint8ClampedArray(RGB24_BLACK_PIXEL);
   private $width: number;
   private $height: number;
   private $rgb: Uint8ClampedArray;
@@ -139,15 +141,15 @@ export class NodeImageBitmap implements IImageBitmap {
     }
   }
 
-  // drawing-related functions
+  // drawImage-related functions
 
   _getRGB(x: number, y: number): Uint8ClampedArray {
     if (x < 0) x += this.$width;
     if (y < 0) y += this.$height;
 
-    // return a black pixel if attempting to get out of bounds
+    // return the out of bounds pixel if attempting to get out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
-      return this.$rgbBlack;
+      return this.$rgbOutOfBounds;
     }
 
     const index = y * this.width + x;
@@ -167,7 +169,15 @@ export class NodeImageBitmap implements IImageBitmap {
     return this._hasAlpha ? this.$alpha[index] : 255;
   }
 
-  _setRGB(x: number, y: number, rgb: Uint8ClampedArray) {
+  _setRGB(x: number, y: number, rgb: Uint8ClampedArray): void;
+  _setRGB(x: number, y: number, r: number, g: number, b: number): void;
+  _setRGB(
+    x: number,
+    y: number,
+    rOrRgb: Uint8ClampedArray | number,
+    g?: number,
+    b?: number
+  ) {
     if (x < 0) x += this.$width;
     if (y < 0) y += this.$height;
 
@@ -177,7 +187,17 @@ export class NodeImageBitmap implements IImageBitmap {
     }
 
     const index = y * this.width + x;
-    this.$rgb.set(rgb, index * RGB24);
+
+    if (typeof rOrRgb === "number") {
+      this.$rgb[index * RGB24 + R] = rOrRgb;
+      this.$rgb[index * RGB24 + G] = g!;
+      this.$rgb[index * RGB24 + B] = b!;
+    } else {
+      if (rOrRgb.length !== 3) {
+        throw new Error(RGB24_SIZE_ERROR);
+      }
+      this.$rgb.set(rOrRgb, index * RGB24);
+    }
   }
 
   _setAlpha(x: number, y: number, alpha: number) {
@@ -194,53 +214,45 @@ export class NodeImageBitmap implements IImageBitmap {
     this.$alpha[index] = alpha;
   }
 
-  _drawPixel(x: number, y: number, rgba: Uint8ClampedArray): void;
-  _drawPixel(x: number, y: number, rgb: Uint8ClampedArray, alpha: number): void;
-  _drawPixel(
-    x: number,
-    y: number,
-    rgbOrRgba: Uint8ClampedArray,
-    alpha?: number
-  ) {
-    // TODO: implement with alpha blending (important!)
+  _drawPixel(x: number, y: number, rgb: Uint8ClampedArray, alpha?: number) {
     if (x < 0) x += this.$width;
     if (y < 0) y += this.$height;
+
+    // do nothing if attempting to draw out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
-      return; // do nothing if attempting to draw out of bounds
+      return;
     }
 
-    if (alpha != null && rgbOrRgba.length !== 3) {
-      throw new Error("RGB24 value must have 3 exactly components.");
-    }
-    if (alpha == null && rgbOrRgba.length !== 4) {
-      throw new Error("RGB32 value must have exactly 4 components.");
+    if (rgb.length !== 3) {
+      throw new Error(RGB24_SIZE_ERROR);
     }
 
-    const [R, G, B] = rgbOrRgba;
-    const A = alpha != null ? alpha : rgbOrRgba[3];
+    // if pixel is transparent do nothing since nothing needs to be drawn
+    if (alpha === 0) {
+      return;
+    }
 
-    const index = y * this.width + x;
-
-    if (A === 255) {
-      // no alpha blending, so just replace the pixel
-      this.$rgb[index * RGB24 + R] = R;
-      this.$rgb[index * RGB24 + G] = G;
-      this.$rgb[index * RGB24 + B] = B;
-      this.$alpha[index] = 255;
+    if (alpha == null || alpha === 255) {
+      // no alpha blending (as alpha = 255), so just replace the pixel
+      this._setRGB(x, y, rgb);
+      this._setAlpha(x, y, 255);
     } else {
-      // alpha blending, take source alpha into account
-      const [sR, sG, sB] = this.$rgb.subarray(index * RGB24);
-      const sA = this._hasAlpha ? this.$alpha[index] : 255;
-      if (sA === 255) {
-        // overlay
-      } else {
-        // blend
-      }
+      // alpha blending (as alpha = 1-254), take source alpha into account
+      const [Ra, Ga, Ba] = this._getRGB(x, y);
+      const Aa = this._getAlpha(x, y);
+      const [Rb, Gb, Bb] = rgb;
+      const Ab = alpha;
+      const R = (Ra * Aa) / 255 + (Rb * Ab * (255 - Aa)) / (255 * 255);
+      const G = (Ga * Aa) / 255 + (Gb * Ab * (255 - Aa)) / (255 * 255);
+      const B = (Ba * Aa) / 255 + (Bb * Ab * (255 - Aa)) / (255 * 255);
+      const A = Aa + (Ab * (255 - Aa)) / 255;
+      this._setRGB(x, y, R, G, B);
+      this._setAlpha(x, y, A);
     }
   }
 
-  _drawNodeImageBitmap(image: NodeImageBitmap, dx: number, dy: number): void;
-  _drawNodeImageBitmap(
+  _drawImage(image: NodeImageBitmap, dx: number, dy: number): void;
+  _drawImage(
     image: NodeImageBitmap,
     sx: number,
     sy: number,
@@ -251,10 +263,10 @@ export class NodeImageBitmap implements IImageBitmap {
     dw: number,
     dh: number
   ): void;
-  _drawNodeImageBitmap(
+  _drawImage(
     image: NodeImageBitmap,
-    dxOrSx: number,
-    dyOrSy: number,
+    sx: number,
+    sy: number,
     sw?: number,
     sh?: number,
     dx?: number,
@@ -262,7 +274,26 @@ export class NodeImageBitmap implements IImageBitmap {
     dw?: number,
     dh?: number
   ) {
-    // TODO: implement
+    // if short call form is used, fill the rest of the params
+    dx = sw ? dx || 0 : sx;
+    dy = sw ? dy || 0 : sy;
+    sx = sw ? sx : 0;
+    sy = sw ? sy : 0;
+    sw = sw || image.width;
+    sh = sh || image.height;
+    dw = dw || sw;
+    dh = dh || sh;
+    if (dw !== sw || dh !== sh) {
+      // non-standard error since we don't handle resizing
+      throw new Error(DRAW_IMAGE_NO_RESIZE_ERROR);
+    }
+    for (let y = 0; y < sh; ++y) {
+      for (let x = 0; x < sw; ++x) {
+        const rgb = image._getRGB(sx + x, sy + y);
+        const alpha = image._getAlpha(sx + x, sy + y);
+        this._drawPixel(dx + x, dy + y, rgb, alpha);
+      }
+    }
   }
 
   // ImageData-related functions
