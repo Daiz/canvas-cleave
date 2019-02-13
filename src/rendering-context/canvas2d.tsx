@@ -25,7 +25,7 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
     arguments[0] = isImageBitmap(input) ? input : input._getImageBitmap();
     const bitmap = this.canvas._getImageBitmap();
     // @ts-ignore As we just pass arguments to the underlying implementation
-    bitmap._drawNodeImageBitmap.apply(bitmap, arguments);
+    bitmap._drawImage.apply(bitmap, arguments);
   }
 
   createImageData(data: IImageData): IImageData;
