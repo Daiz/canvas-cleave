@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "lib": ["es2018"],
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext"],
     "moduleResolution": "node",
     "jsx": "react",
     "strict": true,
@@ -15,5 +15,5 @@
       }
     ]
   },
-  "include": ["src", "typings"]
+  "include": ["src", "typings", "test"]
 }
