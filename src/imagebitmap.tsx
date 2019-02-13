@@ -79,6 +79,11 @@ export class NodeImageBitmap implements IImageBitmap {
       return this;
     }
     const { data, info } = input;
+
+    if (data.length !== info.width * info.height * info.channels) {
+      throw new Error(INVALID_RAW_IMAGE_SIZE_ERROR);
+    }
+
     this.$width = info.width;
     this.$height = info.height;
     let size = data.length / info.channels;
