@@ -1,4 +1,5 @@
-export { NodeCanvas } from "./canvas";
+export { NodeCanvas } from "./elements/canvas";
+export { NodeImage } from "./elements/image";
 export { NodeImageBitmap } from "./imagebitmap";
 export {
   ICanvas,
