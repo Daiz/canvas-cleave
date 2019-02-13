@@ -28,7 +28,10 @@ const YA = 1; // Y16 alpha
 
 const INVALID_RAW_IMAGE_CHANNELS_ERROR =
   "Raw image data must consist of 1-4 channels.";
-const RGB24_SIZE_ERROR = "RGB24 pixel data must be exactly 3 in length.";
+const INVALID_RAW_IMAGE_SIZE_ERROR =
+  "Raw image data buffer size must match the value of width * height * channels provided in the info object.";
+const RGB24_SIZE_ERROR = "RGB24 pixel array must have exactly 3 values.";
+const RGB32_SIZE_ERROR = "RGB32 pixel array must have exactly 4 values.";
 const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
 
 const RGB24_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0]);
@@ -287,6 +290,10 @@ export class NodeImageBitmap implements IImageBitmap {
     // do nothing if trying to set a pixel out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return;
+    }
+
+    if (pixel.length !== 4) {
+      throw new Error(RGB32_SIZE_ERROR);
     }
 
     const index = y * this.$width + x;
