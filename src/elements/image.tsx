@@ -36,8 +36,6 @@ export class NodeImage implements IImage {
     return this.$bitmap.height;
   }
 
-  constructor();
-  constructor(bitmap: NodeImageBitmap);
   constructor(bitmap?: NodeImageBitmap) {
     this.$bitmap = bitmap || new NodeImageBitmap();
   }
