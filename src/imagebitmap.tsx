@@ -12,15 +12,24 @@ export interface IRawImage {
   readonly data: Buffer;
 }
 
-const GRAY8A = 2;
-const RGB24 = 3;
-const RGB32 = 4;
-const R = 0;
-const G = 1;
-const B = 2;
-const A = 4;
-const G8 = 0;
-const G8A = 1;
+// supported image types by channel count
+const Y8 = 1; // gray (named after luma, shortened traditionally to Y)
+const Y16 = 2; // gray, alpha
+const RGB24 = 3; // red, green, blue
+const RGB32 = 4; // red, green, blue, alpha
+
+// image channel indexes
+const R = 0; // RGB24/RGB32 red
+const G = 1; // RGB24/RGB32 green
+const B = 2; // RGB24/RGB32 blue
+const A = 4; // RGB32 alpha
+const Y = 0; // Y8/Y16 gray
+const YA = 1; // Y16 alpha
+
+const INVALID_RAW_IMAGE_CHANNELS_ERROR =
+  "Raw image data must consist of 1-4 channels.";
+const RGB24_SIZE_ERROR = "RGB24 pixel data must be exactly 3 in length.";
+const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
 
 const RGB24_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0]);
 const RGB32_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0, 255]);
@@ -73,8 +82,7 @@ export class NodeImageBitmap implements IImageBitmap {
     let rgb = new Uint8ClampedArray(size * 3);
     let alpha = new Uint8ClampedArray(size);
     switch (info.channels) {
-      // GRAY8
-      case 1:
+      case Y8: // 1
         this._hasAlpha = false;
         for (let i = 0; i < size; ++i) {
           rgb[i * RGB24 + R] = data[i];
@@ -82,23 +90,20 @@ export class NodeImageBitmap implements IImageBitmap {
           rgb[i * RGB24 + B] = data[i];
         }
         break;
-      // GRAY8 + ALPHA
-      case 2:
+      case Y16: // 2
         this._hasAlpha = true;
         for (let i = 0; i < size; ++i) {
-          rgb[i * RGB24 + R] = data[i * GRAY8A + G8];
-          rgb[i * RGB24 + G] = data[i * GRAY8A + G8];
-          rgb[i * RGB24 + B] = data[i * GRAY8A + G8];
-          alpha[i] = data[i * GRAY8A + G8A];
+          rgb[i * RGB24 + R] = data[i * Y16 + Y];
+          rgb[i * RGB24 + G] = data[i * Y16 + Y];
+          rgb[i * RGB24 + B] = data[i * Y16 + Y];
+          alpha[i] = data[i * Y16 + YA];
         }
         break;
-      // RGB24
-      case 3:
+      case RGB24: // 3
         this._hasAlpha = false;
         rgb.set(data);
         break;
-      // RGB32
-      case 4:
+      case RGB32: // 4
         this._hasAlpha = true;
         for (let i = 0; i < size; ++i) {
           rgb[i * RGB24 + R] = data[i * RGB32 + R];
@@ -108,7 +113,7 @@ export class NodeImageBitmap implements IImageBitmap {
         }
         break;
       default:
-        throw new Error("Source image must have 1-4 channels.");
+        throw new Error(INVALID_RAW_IMAGE_CHANNELS_ERROR);
     }
     this.$rgb = rgb;
     this.$alpha = alpha;
@@ -300,6 +305,9 @@ export class NodeImageBitmap implements IImageBitmap {
   ): IImageData {
     if (sx < 0) sx += this.$width;
     if (sy < 0) sy += this.$height;
+
+    // transform left/top-extending rectangles (negative width/height)
+    // into regular right/bottom-extending rectangles
     if (width < 0) {
       sx += width;
       width *= -1;
@@ -308,6 +316,11 @@ export class NodeImageBitmap implements IImageBitmap {
       sy += height;
       height *= -1;
     }
+
+    if (width === 0 || height === 0) {
+      throw new Error(EMPTY_IMAGE_DATA_ERROR);
+    }
+
     const size = width * height * RGB32;
     const data = new Uint8ClampedArray(size);
     let index = 0;
