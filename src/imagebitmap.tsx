@@ -92,8 +92,8 @@ export class NodeImageBitmap implements IImageBitmap {
   private $hasAlpha: boolean = true;
   private $closed: boolean = false;
 
-  public readonly _isImageBitmap = true;
-  public readonly _premultipliedAlpha = false;
+  public readonly _isImageBitmap: true = true;
+  public readonly _premultipliedAlpha: false = false;
 
   close() {
     this.$closed = true;
