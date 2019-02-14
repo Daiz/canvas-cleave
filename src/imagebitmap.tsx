@@ -449,7 +449,7 @@ export class NodeImageBitmap implements IImageBitmap {
       buf[i * channels + R] = this.$rgb[i * RGB24 + R];
       buf[i * channels + G] = this.$rgb[i * RGB24 + G];
       buf[i * channels + B] = this.$rgb[i * RGB24 + B];
-      if (channels === 4) buf[i * channels + A] = this.$alpha[i];
+      buf[i * channels + A] = channels === 4 ? this.$alpha[i] : 255;
     }
     return {
       info: { width, height, channels },
