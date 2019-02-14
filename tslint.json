@@ -1,6 +1,15 @@
 {
   "rules": {
-    "triple-equals": [true, "allow-null-check"]
+    "await-promise": true,
+    "triple-equals": [true, "allow-null-check"],
+    "typedef": [
+      true,
+      "call-signature",
+      "parameter",
+      "property-declaration",
+      "member-variable-declaration"
+    ],
+    "unified-signatures": true
   },
   "extends": ["tslint-config-prettier"]
 }
