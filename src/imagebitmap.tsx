@@ -188,7 +188,7 @@ export class NodeImageBitmap implements IImageBitmap {
       return this.$rgbOutOfBounds;
     }
 
-    const index = y * this.width + x;
+    const index = y * this.$width + x;
     return this.$rgb.subarray(index * RGB24, index * RGB24 + RGB24);
   }
 
@@ -201,7 +201,7 @@ export class NodeImageBitmap implements IImageBitmap {
       return this._hasAlpha ? 0 : 255;
     }
 
-    const index = y * this.width + x;
+    const index = y * this.$width + x;
     return this._hasAlpha ? this.$alpha[index] : 255;
   }
 
@@ -222,7 +222,7 @@ export class NodeImageBitmap implements IImageBitmap {
       return;
     }
 
-    const index = y * this.width + x;
+    const index = y * this.$width + x;
 
     if (typeof rOrRgb === "number") {
       this.$rgb[index * RGB24 + R] = rOrRgb;
@@ -246,7 +246,7 @@ export class NodeImageBitmap implements IImageBitmap {
       return;
     }
 
-    const index = y * this.width + x;
+    const index = y * this.$width + x;
     this.$alpha[index] = alpha;
   }
 
