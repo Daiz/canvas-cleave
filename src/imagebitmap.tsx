@@ -2,9 +2,12 @@ import { NodeImage } from "./elements/image";
 import { IImageBitmap, IImageData } from "./interfaces";
 
 interface RawImageInfo {
+  readonly format: "raw";
   readonly width: number;
   readonly height: number;
   readonly channels: 1 | 2 | 3 | 4;
+  readonly premultiplied: false;
+  readonly size: number;
 }
 
 export interface IRawImage {
@@ -449,10 +452,17 @@ export class NodeImageBitmap implements IImageBitmap {
       buf[i * channels + R] = this.$rgb[i * RGB24 + R];
       buf[i * channels + G] = this.$rgb[i * RGB24 + G];
       buf[i * channels + B] = this.$rgb[i * RGB24 + B];
-      buf[i * channels + A] = channels === 4 ? this.$alpha[i] : 255;
+      if (channels === 4) buf[i * channels + A] = this.$alpha[i];
     }
     return {
-      info: { width, height, channels },
+      info: {
+        format: "raw",
+        width,
+        height,
+        channels,
+        premultiplied: false,
+        size: size * channels
+      },
       data: buf
     };
   }
