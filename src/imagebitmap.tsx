@@ -64,12 +64,12 @@ export class NodeImageBitmap implements IImageBitmap {
 
   get width() {
     if (this.$closed) return 0;
-    else return this.$width;
+    return this.$width;
   }
 
   get height() {
     if (this.$closed) return 0;
-    else return this.$height;
+    return this.$height;
   }
 
   get _hasAlpha() {
@@ -83,12 +83,12 @@ export class NodeImageBitmap implements IImageBitmap {
 
   get _rgbData() {
     if (this.$closed) return EMPTY;
-    else return this.$rgb;
+    return this.$rgb;
   }
 
   get _alphaData() {
     if (this.$closed) return EMPTY;
-    else return this.$alpha;
+    return this.$alpha;
   }
 
   constructor(input?: IRawImage) {
@@ -153,14 +153,24 @@ export class NodeImageBitmap implements IImageBitmap {
 
   _resize(width: number, height: number) {
     const oldSize = this.width * this.height;
+    const oldWidth = this.$width;
+    const oldHeight = this.$height;
     const size = width * height;
+    const alpha = this._hasAlpha ? 0 : 255;
 
-      this.$width = width;
-      this.$height = height;
+    this.$width = width;
+    this.$height = height;
 
     if (size !== oldSize) {
       this.$rgb = new Uint8ClampedArray(size * 3);
       this.$alpha = new Uint8ClampedArray(size);
+    } else {
+      // even if pixel data size remains the same,
+      // reset the data if the dimensions are different
+      if (width !== oldWidth || height !== oldHeight) {
+        this.$rgb.fill(0);
+        this.$alpha.fill(alpha);
+      }
     }
   }
 
