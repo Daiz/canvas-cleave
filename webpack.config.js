@@ -3,6 +3,7 @@ const pkg = require("./package.json");
 
 module.exports = {
   mode: "production",
+  target: "node",
 
   entry: {
     loader: "./src/index.tsx"
@@ -11,10 +12,6 @@ module.exports = {
   output: {
     filename: pkg.main,
     libraryTarget: "commonjs2"
-  },
-
-  node: {
-    Buffer: false
   },
 
   resolve: {
