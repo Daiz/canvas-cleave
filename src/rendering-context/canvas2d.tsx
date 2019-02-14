@@ -1,6 +1,6 @@
 import { NodeCanvas } from "../elements/canvas";
 import { NodeImage } from "../elements/image";
-import { isImageBitmap, NodeImageBitmap } from "../imagebitmap";
+import { NodeImageBitmap } from "../imagebitmap";
 import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 
 type NodeCanvasImageSource = NodeCanvas | NodeImage | NodeImageBitmap;
@@ -22,7 +22,9 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
   ): void;
   drawImage() {
     const input: NodeCanvasImageSource = arguments[0];
-    arguments[0] = isImageBitmap(input) ? input : input._getImageBitmap();
+    arguments[0] = NodeImageBitmap.isImageBitmap(input)
+      ? input
+      : input._getImageBitmap();
     const bitmap = this.canvas._getImageBitmap();
     // @ts-ignore As we just pass arguments to the underlying implementation
     bitmap._drawImage.apply(bitmap, arguments);
