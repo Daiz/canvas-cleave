@@ -9,10 +9,13 @@ interface RawImageInfo {
   readonly premultiplied: false;
   readonly size: number;
 }
-
-export interface IRawImage {
+/**
+ * Node interface for passing around raw image data.
+ * @internal
+ */
+export interface NIRawImage {
   readonly info: RawImageInfo;
-  readonly data: Buffer;
+  readonly data: Uint8Array;
 }
 
 // supported image types by channel count
@@ -94,7 +97,7 @@ export class NodeImageBitmap implements IImageBitmap {
     return this.$alpha;
   }
 
-  constructor(input?: IRawImage) {
+  constructor(input?: NIRawImage) {
     if (!input) {
       this.$width = 0;
       this.$height = 0;
@@ -448,12 +451,12 @@ export class NodeImageBitmap implements IImageBitmap {
     return new NodeImage(this);
   }
 
-  _toRawImage(): IRawImage {
+  _toRawImage(): NIRawImage {
     const channels = this._hasAlpha ? 4 : 3;
     const width = this.$width;
     const height = this.$height;
     const size = width * height;
-    const buf = Buffer.alloc(size * channels);
+    const buf = new Uint8Array(size * channels);
     for (let i = 0; i < size; ++i) {
       buf[i * channels + R] = this.$rgb[i * RGB24 + R];
       buf[i * channels + G] = this.$rgb[i * RGB24 + G];
