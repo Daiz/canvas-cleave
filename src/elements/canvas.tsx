@@ -61,13 +61,14 @@ export class NodeCanvas implements ICanvas {
     console.log("this code should be unreachable?");
   }
 
-  // non-standard methods for functional shimming purposes
-  _setImageBitmap(bitmap: NodeImageBitmap) {
-    this.$bitmap = bitmap;
-  }
   _getImageBitmap() {
     return this.$bitmap;
   }
+
+  _setImageBitmap(bitmap: NodeImageBitmap) {
+    this.$bitmap = bitmap;
+  }
+
   _toRawImage() {
     return this.$bitmap._toRawImage();
   }
