@@ -47,6 +47,9 @@ const RGB24_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0]);
 const RGB32_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0, 255]);
 const RGB32_BLANK_PIXEL = new Uint8ClampedArray([0, 0, 0, 0]);
 
+/**
+ * @public
+ */
 export class NodeImageBitmap implements IImageBitmap {
   static isImageBitmap(bitmap: any): bitmap is NodeImageBitmap {
   if (bitmap._isImageBitmap) return true;

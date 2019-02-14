@@ -5,6 +5,9 @@ import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 
 type NodeCanvasImageSource = NodeCanvas | NodeImage | NodeImageBitmap;
 
+/**
+ * @public
+ */
 export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
   constructor(public readonly canvas: NodeCanvas) {}
 

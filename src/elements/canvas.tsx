@@ -7,6 +7,9 @@ import {
 import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 
+/**
+ * @public
+ */
 export class NodeCanvas implements ICanvas {
   private $bitmap: NodeImageBitmap;
 
