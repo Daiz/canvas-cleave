@@ -4,7 +4,7 @@ import { IImageBitmap, IImageData } from "./interfaces";
 interface RawImageInfo {
   readonly width: number;
   readonly height: number;
-  readonly channels: number;
+  readonly channels: 1 | 2 | 3 | 4;
 }
 
 export interface IRawImage {
@@ -36,6 +36,7 @@ const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
 const DRAW_IMAGE_NO_RESIZE_ERROR =
   "Resizing is not supported. Source and target draw rects must be equal in size.";
 
+const EMPTY = new Uint8ClampedArray();
 const RGB24_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0]);
 const RGB32_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0, 255]);
 const RGB32_BLANK_PIXEL = new Uint8ClampedArray([0, 0, 0, 0]);
@@ -51,11 +52,11 @@ export class NodeImageBitmap implements IImageBitmap {
   private $height: number;
   private $rgb: Uint8ClampedArray;
   private $alpha: Uint8ClampedArray;
+  private $hasAlpha: boolean = true;
   private $closed: boolean = false;
 
   public readonly _isImageBitmap = true;
   public readonly _premultipliedAlpha = false;
-  public _hasAlpha: boolean;
 
   close() {
     this.$closed = true;
@@ -69,6 +70,25 @@ export class NodeImageBitmap implements IImageBitmap {
   get height() {
     if (this.$closed) return 0;
     else return this.$height;
+  }
+
+  get _hasAlpha() {
+    return this.$hasAlpha;
+  }
+
+  set _hasAlpha(value: boolean) {
+    this.$hasAlpha = value;
+    if (!value && this.$alpha) this.$alpha.fill(255);
+  }
+
+  get _rgbData() {
+    if (this.$closed) return EMPTY;
+    else return this.$rgb;
+  }
+
+  get _alphaData() {
+    if (this.$closed) return EMPTY;
+    else return this.$alpha;
   }
 
   constructor(input?: IRawImage) {
@@ -98,6 +118,7 @@ export class NodeImageBitmap implements IImageBitmap {
           rgb[i * RGB24 + R] = data[i];
           rgb[i * RGB24 + G] = data[i];
           rgb[i * RGB24 + B] = data[i];
+          alpha[i] = 255;
         }
         break;
       case Y16: // 2
@@ -112,6 +133,7 @@ export class NodeImageBitmap implements IImageBitmap {
       case RGB24: // 3
         this._hasAlpha = false;
         rgb.set(data);
+        alpha.fill(255);
         break;
       case RGB32: // 4
         this._hasAlpha = true;
