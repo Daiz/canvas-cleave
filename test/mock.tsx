@@ -12,7 +12,7 @@ export function recordMethodCalls<T extends object>(
           const method = (obj[prop] as unknown) as Function;
           return (function(...args: any): any {
             const result = method.apply(obj, args);
-            record[prop]!();
+            record[prop]!.apply(obj, args);
             return result;
           } as unknown) as T[K];
         }
