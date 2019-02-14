@@ -1,5 +1,6 @@
 node_modules
 lib
 tmp
+temp
 dist
 package-lock.json
