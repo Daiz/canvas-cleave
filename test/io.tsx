@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { NIRawImage, NodeCanvas, NodeImageBitmap } from "../../src";
+import { NIRawImage, NodeCanvas, NodeImageBitmap } from "../src";
 
 const LOAD_IMAGE_OPTS = {
   resolveWithObject: true as true

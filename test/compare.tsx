@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import { NIRawImage, NodeCanvas, NodeImageBitmap } from "../../src";
+import { NIRawImage, NodeCanvas, NodeImageBitmap } from "../src";
 
 async function dHash(source: NIRawImage) {
   const buf = await sharp(source.data, { raw: source.info })
