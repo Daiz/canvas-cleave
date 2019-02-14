@@ -39,7 +39,7 @@ const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
 const DRAW_IMAGE_NO_RESIZE_ERROR =
   "Resizing is not supported. Source and target draw rects must be equal in size.";
 
-const EMPTY = new Uint8ClampedArray();
+const EMPTY = new Uint8ClampedArray(0);
 const RGB24_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0]);
 const RGB32_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0, 255]);
 const RGB32_BLANK_PIXEL = new Uint8ClampedArray([0, 0, 0, 0]);
@@ -98,8 +98,8 @@ export class NodeImageBitmap implements IImageBitmap {
     if (!input) {
       this.$width = 0;
       this.$height = 0;
-      this.$rgb = new Uint8ClampedArray();
-      this.$alpha = new Uint8ClampedArray();
+      this.$rgb = new Uint8ClampedArray(0);
+      this.$alpha = new Uint8ClampedArray(0);
       this._hasAlpha = true;
       return this;
     }
@@ -274,10 +274,16 @@ export class NodeImageBitmap implements IImageBitmap {
       this._setAlpha(x, y, 255);
     } else {
       // alpha blending (as alpha = 1-254), take source alpha into account
-      const [Rb, Gb, Bb] = this._getRGB(x, y);
-      const Ab = this._getAlpha(x, y);
-      const [Ra, Ga, Ba] = rgb;
+      const Ra = rgb[0];
+      const Ga = rgb[1];
+      const Ba = rgb[2];
       const Aa = alpha;
+      const srgb = this._getRGB(x, y);
+      const Rb = srgb[0];
+      const Gb = srgb[1];
+      const Bb = srgb[2];
+      const Ab = this._getAlpha(x, y);
+
       const R = (Ra * Aa) / 255 + (Rb * Ab * (255 - Aa)) / (255 * 255);
       const G = (Ga * Aa) / 255 + (Gb * Ab * (255 - Aa)) / (255 * 255);
       const B = (Ba * Aa) / 255 + (Bb * Ab * (255 - Aa)) / (255 * 255);
