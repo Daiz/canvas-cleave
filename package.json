@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "100% JS Node.js shim for HTML5 Canvas drawImage (without resizing)",
   "main": "dist/canvas-cleave.min.js",
+  "typings": "dist/canvas-cleave.d.ts",
+  "tsdoc": {
+    "tsdocFlavor": "AEDoc"
+  },
   "module": "lib/index.js",
   "scripts": {
     "test": "jest",
@@ -10,12 +14,14 @@
     "build:lib": "rimraf lib && tsc --build tsconfig.lib.json",
     "build:dist": "rimraf dist && webpack",
     "build": "npm run build:lib && npm run build:dist",
+    "api-extractor": "npm run build:lib && api-extractor run",
   },
   "author": "Daiz <daiz@limit.media>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "@microsoft/api-extractor": "^7.0.17",
     "@types/jest": "^23.3.14",
     "@types/sharp": "^0.21.0",
     "awesome-typescript-loader": "^5.2.1",
