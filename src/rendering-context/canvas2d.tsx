@@ -3,7 +3,11 @@ import { NodeImage } from "../elements/image";
 import { NodeImageBitmap } from "../imagebitmap";
 import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 
-type NodeCanvasImageSource = NodeCanvas | NodeImage | NodeImageBitmap;
+/**
+ * Node interface for NodeCanvas.drawImage input image type support.
+ * @internal
+ */
+export type _NINodeCanvasImageSource = NodeCanvas | NodeImage | NodeImageBitmap;
 
 /**
  * @public
@@ -11,9 +15,9 @@ type NodeCanvasImageSource = NodeCanvas | NodeImage | NodeImageBitmap;
 export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
   constructor(public readonly canvas: NodeCanvas) {}
 
-  drawImage(image: NodeCanvasImageSource, dx: number, dy: number): void;
+  drawImage(image: _NINodeCanvasImageSource, dx: number, dy: number): void;
   drawImage(
-    image: NodeCanvasImageSource,
+    image: _NINodeCanvasImageSource,
     sx: number,
     sy: number,
     sw: number,
@@ -23,8 +27,8 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
     dw: number,
     dh: number
   ): void;
-  drawImage() {
-    const input: NodeCanvasImageSource = arguments[0];
+  drawImage(): void {
+    const input: _NINodeCanvasImageSource = arguments[0];
     arguments[0] = NodeImageBitmap.isImageBitmap(input)
       ? input
       : input._getImageBitmap();
@@ -54,7 +58,7 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
     };
   }
 
-  getImageData(sx: number, sy: number, sw: number, sh: number) {
+  getImageData(sx: number, sy: number, sw: number, sh: number): IImageData {
     const bitmap = this.canvas._getImageBitmap();
     return bitmap._getImageData(sx, sy, sw, sh);
   }
@@ -69,7 +73,7 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
     dirtyWidth: number,
     dirtyHeight: number
   ): void;
-  putImageData() {
+  putImageData(): void {
     const bitmap = this.canvas._getImageBitmap();
     // @ts-ignore As we just pass arguments to the underlying implementation
     bitmap._putImageData.apply(bitmap, arguments);

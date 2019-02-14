@@ -84,7 +84,9 @@ export class NodeImageBitmap implements IImageBitmap {
     return false;
   }
 
-  private readonly $rgbOutOfBounds = new Uint8ClampedArray(RGB24_BLACK_PIXEL);
+  private readonly $rgbOutOfBounds: Uint8ClampedArray = new Uint8ClampedArray(
+    RGB24_BLACK_PIXEL
+  );
   private $width: number;
   private $height: number;
   private $rgb: Uint8ClampedArray;
@@ -95,21 +97,21 @@ export class NodeImageBitmap implements IImageBitmap {
   public readonly _isImageBitmap: true = true;
   public readonly _premultipliedAlpha: false = false;
 
-  close() {
+  close(): void {
     this.$closed = true;
   }
 
-  get width() {
+  get width(): number {
     if (this.$closed) return 0;
     return this.$width;
   }
 
-  get height() {
+  get height(): number {
     if (this.$closed) return 0;
     return this.$height;
   }
 
-  get _hasAlpha() {
+  get _hasAlpha(): boolean {
     return this.$hasAlpha;
   }
 
@@ -118,12 +120,12 @@ export class NodeImageBitmap implements IImageBitmap {
     if (!value && this.$alpha) this.$alpha.fill(255);
   }
 
-  get _rgbData() {
+  get _rgbData(): Uint8ClampedArray {
     if (this.$closed) return EMPTY;
     return this.$rgb;
   }
 
-  get _alphaData() {
+  get _alphaData(): Uint8ClampedArray {
     if (this.$closed) return EMPTY;
     return this.$alpha;
   }
@@ -188,7 +190,7 @@ export class NodeImageBitmap implements IImageBitmap {
     this.$alpha = alpha;
   }
 
-  _resize(width: number, height: number) {
+  _resize(width: number, height: number): void {
     const oldSize = this.$width * this.$height;
     const oldWidth = this.$width;
     const oldHeight = this.$height;
@@ -247,7 +249,7 @@ export class NodeImageBitmap implements IImageBitmap {
     rOrRgb: Uint8ClampedArray | number,
     g?: number,
     b?: number
-  ) {
+  ): void {
     if (x < 0) x += this.$width;
     if (y < 0) y += this.$height;
 
@@ -270,7 +272,7 @@ export class NodeImageBitmap implements IImageBitmap {
     }
   }
 
-  _setAlpha(x: number, y: number, alpha: number) {
+  _setAlpha(x: number, y: number, alpha: number): void {
     if (!this._hasAlpha) return;
     if (x < 0) x += this.$width;
     if (y < 0) y += this.$height;
@@ -284,7 +286,12 @@ export class NodeImageBitmap implements IImageBitmap {
     this.$alpha[index] = alpha;
   }
 
-  _drawPixel(x: number, y: number, rgb: Uint8ClampedArray, alpha?: number) {
+  _drawPixel(
+    x: number,
+    y: number,
+    rgb: Uint8ClampedArray,
+    alpha?: number
+  ): void {
     if (x < 0) x += this.$width;
     if (y < 0) y += this.$height;
 
@@ -349,7 +356,7 @@ export class NodeImageBitmap implements IImageBitmap {
     dy?: number,
     dw?: number,
     dh?: number
-  ) {
+  ): void {
     // if short call form is used, fill the rest of the params
     dx = sw ? dx || 0 : sx;
     dy = sw ? dy || 0 : sy;
@@ -395,7 +402,7 @@ export class NodeImageBitmap implements IImageBitmap {
     return pixel;
   }
 
-  _setPixel(x: number, y: number, pixel: Uint8ClampedArray) {
+  _setPixel(x: number, y: number, pixel: Uint8ClampedArray): void {
     if (x < 0) x += this.$width;
     if (y < 0) y += this.$height;
 
@@ -474,7 +481,7 @@ export class NodeImageBitmap implements IImageBitmap {
     dirtyY?: number,
     dirtyWidth?: number,
     dirtyHeight?: number
-  ) {
+  ): void {
     // TODO: implement
   }
 

@@ -1,4 +1,4 @@
-import { NodeImageBitmap } from "../imagebitmap";
+import { NIRawImage, NodeImageBitmap } from "../imagebitmap";
 import {
   ICanvas,
   IRenderingContextOptions,
@@ -15,7 +15,7 @@ export class NodeCanvas implements ICanvas {
 
   constructor(bitmap?: NodeImageBitmap);
   constructor(width: number, height: number);
-  constructor(widthOrBitmap: number | NodeImageBitmap = 0, height = 0) {
+  constructor(widthOrBitmap: number | NodeImageBitmap = 0, height: number = 0) {
     if (typeof widthOrBitmap === "number") {
       this.$bitmap = new NodeImageBitmap();
       this.$bitmap._resize(widthOrBitmap, height);
@@ -24,11 +24,11 @@ export class NodeCanvas implements ICanvas {
     }
   }
 
-  get width() {
+  get width(): number {
     return this.$bitmap.width;
   }
 
-  get height() {
+  get height(): number {
     return this.$bitmap.height;
   }
 
@@ -48,7 +48,7 @@ export class NodeCanvas implements ICanvas {
   getContext(
     context: IRenderingContextType,
     options?: IRenderingContextOptions
-  ) {
+  ): NodeImageBitmapRenderingContext | NodeCanvasRenderingContext2D {
     switch (context) {
       case "bitmaprenderer":
         return new NodeImageBitmapRenderingContext(this);
@@ -61,15 +61,15 @@ export class NodeCanvas implements ICanvas {
     console.log("this code should be unreachable?");
   }
 
-  _getImageBitmap() {
+  _getImageBitmap(): NodeImageBitmap {
     return this.$bitmap;
   }
 
-  _setImageBitmap(bitmap: NodeImageBitmap) {
+  _setImageBitmap(bitmap: NodeImageBitmap): void {
     this.$bitmap = bitmap;
   }
 
-  _toRawImage() {
+  toRawImage(): NIRawImage {
     return this.$bitmap._toRawImage();
   }
 }

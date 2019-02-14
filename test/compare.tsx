@@ -1,7 +1,7 @@
 import sharp from "sharp";
 import { NIRawImage, NodeCanvas, NodeImageBitmap } from "../src";
 
-async function dHash(source: NIRawImage) {
+async function dHash(source: NIRawImage): Promise<number[]> {
   const buf = await sharp(source.data, { raw: source.info })
     .greyscale()
     .normalize()
@@ -23,7 +23,7 @@ export async function isSimilar(
   expected: NIRawImage | NodeCanvas | NodeImageBitmap,
   received: NIRawImage | NodeCanvas | NodeImageBitmap,
   threshold: number = 5
-) {
+): Promise<boolean> {
   if (expected instanceof NodeCanvas) expected = expected.toRawImage();
   if (expected instanceof NodeImageBitmap) expected = expected._toRawImage();
   if (received instanceof NodeCanvas) received = received.toRawImage();

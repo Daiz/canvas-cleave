@@ -5,7 +5,7 @@ const LOAD_IMAGE_OPTS = {
   resolveWithObject: true as true
 };
 
-export async function loadImage(source: string) {
+export async function loadImage(source: string): Promise<NodeImageBitmap> {
   const rawImage = (await sharp(source)
     .raw()
     .toBuffer(LOAD_IMAGE_OPTS)) as NIRawImage;
@@ -16,7 +16,7 @@ export async function loadImage(source: string) {
 export async function saveImage(
   target: string,
   rawImage: NIRawImage | NodeImageBitmap | NodeCanvas
-) {
+): Promise<sharp.OutputInfo> {
   if (rawImage instanceof NodeCanvas) rawImage = rawImage.toRawImage();
   if (rawImage instanceof NodeImageBitmap) rawImage = rawImage._toRawImage();
   const { data, info } = rawImage;

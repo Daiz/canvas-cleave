@@ -11,15 +11,15 @@ export class NodeImage implements IImage {
   private $complete: boolean = true;
   public src: string = "";
 
-  get complete() {
+  get complete(): boolean {
     return this.$complete;
   }
 
-  get width() {
+  get width(): number {
     return this.$width || this.$bitmap.width;
   }
 
-  get height() {
+  get height(): number {
     return this.$height || this.$bitmap.height;
   }
 
@@ -31,11 +31,11 @@ export class NodeImage implements IImage {
     this.$height = value;
   }
 
-  get naturalWidth() {
+  get naturalWidth(): number {
     return this.$bitmap.width;
   }
 
-  get naturalHeight() {
+  get naturalHeight(): number {
     return this.$bitmap.height;
   }
 
@@ -43,7 +43,7 @@ export class NodeImage implements IImage {
     this.$bitmap = bitmap || new NodeImageBitmap();
   }
 
-  _getImageBitmap() {
+  _getImageBitmap(): NodeImageBitmap {
     return this.$bitmap;
   }
 }

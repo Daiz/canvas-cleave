@@ -5,7 +5,7 @@ import { NodeCanvas } from "./canvas";
  * @public
  */
 export class NodeDocument implements IDocument {
-  createElement(el: "canvas") {
+  createElement(el: "canvas"): NodeCanvas {
     return new NodeCanvas();
   }
 }

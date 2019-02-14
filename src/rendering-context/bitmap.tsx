@@ -9,7 +9,7 @@ export class NodeImageBitmapRenderingContext
   implements IImageBitmapRenderingContext {
   constructor(public readonly canvas: NodeCanvas) {}
 
-  transferFromImageBitmap(bitmap: NodeImageBitmap) {
+  transferFromImageBitmap(bitmap: NodeImageBitmap): void {
     this.canvas._setImageBitmap(bitmap);
   }
 }
