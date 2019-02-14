@@ -13,3 +13,5 @@ export {
   IRenderingContextOptions,
   IRenderingContextType
 } from "./interfaces";
+export { NodeImageBitmapRenderingContext } from "./rendering-context/bitmap";
+export { NodeCanvasRenderingContext2D } from "./rendering-context/canvas2d";
