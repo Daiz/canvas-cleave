@@ -10,8 +10,8 @@ import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 export class NodeCanvas implements ICanvas {
   private $bitmap: NodeImageBitmap;
 
-  constructor(bitmap: NodeImageBitmap);
-  constructor(width?: number, height?: number);
+  constructor(bitmap?: NodeImageBitmap);
+  constructor(width: number, height: number);
   constructor(widthOrBitmap: number | NodeImageBitmap = 0, height = 0) {
     if (typeof widthOrBitmap === "number") {
       this.$bitmap = new NodeImageBitmap();
