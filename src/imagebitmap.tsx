@@ -274,10 +274,10 @@ export class NodeImageBitmap implements IImageBitmap {
       this._setAlpha(x, y, 255);
     } else {
       // alpha blending (as alpha = 1-254), take source alpha into account
-      const [Ra, Ga, Ba] = this._getRGB(x, y);
-      const Aa = this._getAlpha(x, y);
-      const [Rb, Gb, Bb] = rgb;
-      const Ab = alpha;
+      const [Rb, Gb, Bb] = this._getRGB(x, y);
+      const Ab = this._getAlpha(x, y);
+      const [Ra, Ga, Ba] = rgb;
+      const Aa = alpha;
       const R = (Ra * Aa) / 255 + (Rb * Ab * (255 - Aa)) / (255 * 255);
       const G = (Ga * Aa) / 255 + (Gb * Ab * (255 - Aa)) / (255 * 255);
       const B = (Ba * Aa) / 255 + (Bb * Ab * (255 - Aa)) / (255 * 255);
