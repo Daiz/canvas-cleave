@@ -1,4 +1,4 @@
-const { resolve } = require("path");
+const { basename, dirname, join } = require("path");
 const pkg = require("./package.json");
 
 module.exports = {
@@ -10,8 +10,9 @@ module.exports = {
   },
 
   output: {
-    filename: pkg.main,
-    libraryTarget: "commonjs2"
+    filename: basename(pkg.main),
+    libraryTarget: "commonjs2",
+    path: join(__dirname, dirname(pkg.main))
   },
 
   resolve: {
@@ -28,8 +29,8 @@ module.exports = {
             configFileName: "tsconfig.dist.json"
           }
         },
-        exclude: resolve(__dirname, "node_modules"),
-        include: resolve(__dirname, "src")
+        exclude: join(__dirname, "node_modules"),
+        include: join(__dirname, "src")
       }
     ]
   }

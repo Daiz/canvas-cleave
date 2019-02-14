@@ -6,7 +6,6 @@
     "moduleResolution": "node",
     "jsx": "react",
     "strict": true,
-    "outDir": "/",
     "sourceMap": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
