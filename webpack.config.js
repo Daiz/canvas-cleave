@@ -10,8 +10,11 @@ module.exports = {
 
   output: {
     filename: pkg.main,
-    library: "CanvasCleave",
-    libraryTarget: "umd"
+    libraryTarget: "commonjs2"
+  },
+
+  node: {
+    Buffer: false
   },
 
   resolve: {
