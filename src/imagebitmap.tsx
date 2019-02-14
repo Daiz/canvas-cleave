@@ -11,7 +11,7 @@ interface RawImageInfo {
 }
 /**
  * Node interface for passing around raw image data.
- * @internal
+ * @public
  */
 export interface NIRawImage {
   readonly info: RawImageInfo;
