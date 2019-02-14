@@ -43,7 +43,7 @@ export interface NIRawImage {
   /**
    * The raw image data. Length should be equal to info.size.
    */
-  readonly data: Uint8Array;
+  readonly data: Buffer;
 }
 
 // supported image types by channel count
@@ -487,7 +487,7 @@ export class NodeImageBitmap implements IImageBitmap {
     const width = this.$width;
     const height = this.$height;
     const size = width * height;
-    const buf = new Uint8Array(size * channels);
+    const buf = Buffer.alloc(size * channels);
     for (let i = 0; i < size; ++i) {
       buf[i * channels + R] = this.$rgb[i * RGB24 + R];
       buf[i * channels + G] = this.$rgb[i * RGB24 + G];
