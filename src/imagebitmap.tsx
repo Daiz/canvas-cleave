@@ -155,7 +155,7 @@ export class NodeImageBitmap implements IImageBitmap {
   }
 
   _resize(width: number, height: number) {
-    const oldSize = this.width * this.height;
+    const oldSize = this.$width * this.$height;
     const oldWidth = this.$width;
     const oldHeight = this.$height;
     const size = width * height;
