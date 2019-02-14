@@ -1,12 +1,34 @@
 import { NodeImage } from "./elements/image";
 import { IImageBitmap, IImageData } from "./interfaces";
 
-interface RawImageInfo {
+/**
+ * Node interface for raw image information.
+ * @public
+ */
+export interface NIRawImageInfo {
+  /**
+   * The format of the image.
+   */
   readonly format: "raw";
+  /**
+   * The width of the image in pixels.
+   */
   readonly width: number;
+  /**
+   * The height of the image in pixels.
+   */
   readonly height: number;
+  /**
+   * The channel count of the image.
+   */
   readonly channels: 1 | 2 | 3 | 4;
+  /**
+   * Does the image have premultiplied alpha? Should be always false as canvas-cleave does not support premultiplied alpha.
+   */
   readonly premultiplied: false;
+  /**
+   * The size of the image in bytes. Equal to width * height * channels.
+   */
   readonly size: number;
 }
 /**
@@ -14,7 +36,13 @@ interface RawImageInfo {
  * @public
  */
 export interface NIRawImage {
-  readonly info: RawImageInfo;
+  /**
+   * The raw image info. Refer to {@link NIRawImageInfo} for details.
+   */
+  readonly info: NIRawImageInfo;
+  /**
+   * The raw image data. Length should be equal to info.size.
+   */
   readonly data: Uint8Array;
 }
 
