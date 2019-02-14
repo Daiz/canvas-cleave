@@ -110,13 +110,13 @@ export interface ICanvas {
   height: number;
   /**
    * Get a image bitmap rendering context for the canvas.
-   * @param context The context to request.
+   * @param context - The context to request.
    */
   getContext(context: "bitmaprenderer"): IImageBitmapRenderingContext;
   /**
    * Get a 2D rendering context for the canvas.
-   * @param context The context to request.
-   * @param options Optional options for the context.
+   * @param context - The context to request.
+   * @param options - Optional options for the context.
    */
   getContext(
     context: "2d",
@@ -135,22 +135,22 @@ export interface ICanvasRenderingContext2D {
   readonly canvas: ICanvas;
   /**
    * Draw an image to the canvas at the specified coordinates.
-   * @param image The image to draw.
-   * @param dx The x coordinate to draw the image to.
-   * @param dy The y coordinate to draw the image to.
+   * @param image - The image to draw.
+   * @param dx - The x coordinate to draw the image to.
+   * @param dy - The y coordinate to draw the image to.
    */
   drawImage(image: ICanvasImageSource, dx: number, dy: number): void;
   /**
    * Draw a region of an image to the canvas at the specified coordinates.
-   * @param image The image to draw.
-   * @param sx The x coordinate of the source region.
-   * @param sy The y coordinate of the source region.
-   * @param sw The width of the source region. Can be negative to extend left.
-   * @param sh The height of the source region. Can be negative to extend up.
-   * @param dx The x coordinate on the destination region.
-   * @param dy The y coordinate of the destination region.
-   * @param dw The width of the destination region. Must equal abs(sw).
-   * @param dh The height of the destination region. Must equal abs(sh).
+   * @param image - The image to draw.
+   * @param sx - The x coordinate of the source region.
+   * @param sy - The y coordinate of the source region.
+   * @param sw - The width of the source region. Can be negative to extend left.
+   * @param sh - The height of the source region. Can be negative to extend up.
+   * @param dx - The x coordinate on the destination region.
+   * @param dy - The y coordinate of the destination region.
+   * @param dw - The width of the destination region. Must equal abs(sw).
+   * @param dh - The height of the destination region. Must equal abs(sh).
    */
   drawImage(
     image: ICanvasImageSource,
@@ -165,28 +165,28 @@ export interface ICanvasRenderingContext2D {
   ): void;
   /**
    * Get ImageData for the defined region of the canvas.
-   * @param sx The x coordinate of the region.
-   * @param sy The y coordiante of the region.
-   * @param sw The width of the region. Can be negative to extend left.
-   * @param sh The height of the region. Can be negative to extend up.
+   * @param sx - The x coordinate of the region.
+   * @param sy - The y coordiante of the region.
+   * @param sw - The width of the region. Can be negative to extend left.
+   * @param sh - The height of the region. Can be negative to extend up.
    */
   getImageData(sx: number, sy: number, sw: number, sh: number): IImageData;
   /**
    * Replace a region of the canvas with the supplied ImageData.
-   * @param data The ImageData to use for the replacement.
-   * @param dx The x coordinate of the region.
-   * @param dy The y coordinate of the region.
+   * @param data - The ImageData to use for the replacement.
+   * @param dx - The x coordinate of the region.
+   * @param dy - The y coordinate of the region.
    */
   putImageData(data: IImageData, dx: number, dy: number): void;
   /**
    * Replace a region of the canvas with a region of the supplied ImageData.
-   * @param data The ImageData to use for the replacement.
-   * @param dx The x coordinate of the destination region.
-   * @param dy The y coordinate of the destination region.
-   * @param dirtyX The x coordinate of the source region. Default 0.
-   * @param dirtyY The y coordinate of the source region. Default 0.
-   * @param dirtyWidth The width of the source region. Default `ImageData.width`.
-   * @param dirtyHeight The height of the source region. Default `ImageData.height`.
+   * @param data - The ImageData to use for the replacement.
+   * @param dx - The x coordinate of the destination region.
+   * @param dy - The y coordinate of the destination region.
+   * @param dirtyX - The x coordinate of the source region. Default 0.
+   * @param dirtyY - The y coordinate of the source region. Default 0.
+   * @param dirtyWidth - The width of the source region. Default `ImageData.width`.
+   * @param dirtyHeight - The height of the source region. Default `ImageData.height`.
    */
   putImageData(
     data: IImageData,
@@ -210,7 +210,7 @@ export interface IImageBitmapRenderingContext {
   readonly canvas: ICanvas;
   /**
    * Replace the contents of the canvas with the contents of an image bitmap.
-   * @param bitmap The bitmap to replace the canvas contents with.
+   * @param bitmap - The bitmap to replace the canvas contents with.
    */
   transferFromImageBitmap(bitmap: IImageBitmap): void;
 }
