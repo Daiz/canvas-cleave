@@ -2,10 +2,12 @@
   "name": "canvas-cleave",
   "version": "0.0.0",
   "description": "100% JS Node.js shim for HTML5 Canvas drawImage (without resizing)",
-  "main": "lib/index.js",
+  "main": "dist/canvas-cleave.min.js",
+  "module": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "start": "tsc --watch",
+    "start": "jest --watch",
+    "build": "tsc --build",
     "docs": "tsc --build && api-extractor run && api-documenter markdown --input-folder etc --output-folder docs"
   },
   "author": "Daiz <daiz@limit.media>",
