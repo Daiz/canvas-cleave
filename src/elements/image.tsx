@@ -1,11 +1,9 @@
 import { NodeImageBitmap } from "../imagebitmap";
 import { IImage } from "../interfaces";
 
-export function isImage(image: any): image is IImage {
-  if (image.naturalWidth && image.naturalHeight) return true;
-  return false;
-}
-
+/**
+ * @public
+ */
 export class NodeImage implements IImage {
   private $bitmap: NodeImageBitmap;
   private $width: number = 0;
