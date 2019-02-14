@@ -22,7 +22,7 @@ const RGB32 = 4; // red, green, blue, alpha
 const R = 0; // RGB24/RGB32 red
 const G = 1; // RGB24/RGB32 green
 const B = 2; // RGB24/RGB32 blue
-const A = 4; // RGB32 alpha
+const A = 3; // RGB32 alpha
 const Y = 0; // Y8/Y16 gray
 const YA = 1; // Y16 alpha
 
