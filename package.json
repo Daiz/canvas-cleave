@@ -7,8 +7,9 @@
   "scripts": {
     "test": "jest",
     "start": "jest --watch",
-    "build": "tsc --build",
-    "docs": "tsc --build && api-extractor run && api-documenter markdown --input-folder etc --output-folder docs"
+    "build:lib": "rimraf lib && tsc --build tsconfig.lib.json",
+    "build:dist": "rimraf dist && webpack",
+    "build": "npm run build:lib && npm run build:dist",
   },
   "author": "Daiz <daiz@limit.media>",
   "license": "UNLICENSED",
@@ -17,13 +18,17 @@
   "devDependencies": {
     "@types/jest": "^23.3.14",
     "@types/sharp": "^0.21.0",
+    "awesome-typescript-loader": "^5.2.1",
     "jest": "^23.6.0",
     "prettier": "^1.15.3",
+    "rimraf": "^2.6.3",
     "sharp": "^0.21.1",
     "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2",
-    "typescript-tslint-plugin": "^0.1.2"
+    "typescript-tslint-plugin": "^0.1.2",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   }
 }
