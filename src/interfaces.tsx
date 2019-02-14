@@ -96,6 +96,9 @@ export interface IDocument {
  * @public
  */
 export interface IRenderingContextOptions {
+  /**
+   * Enable/disable alpha channel for the canvas depending on your needs.
+   */
   alpha: boolean;
 }
 
