@@ -155,9 +155,10 @@ export class NodeImageBitmap implements IImageBitmap {
     const oldSize = this.width * this.height;
     const size = width * height;
 
-    if (size !== oldSize) {
       this.$width = width;
       this.$height = height;
+
+    if (size !== oldSize) {
       this.$rgb = new Uint8ClampedArray(size * 3);
       this.$alpha = new Uint8ClampedArray(size);
     }
