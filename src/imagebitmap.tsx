@@ -52,9 +52,9 @@ const RGB32_BLANK_PIXEL = new Uint8ClampedArray([0, 0, 0, 0]);
  */
 export class NodeImageBitmap implements IImageBitmap {
   static isImageBitmap(bitmap: any): bitmap is NodeImageBitmap {
-  if (bitmap._isImageBitmap) return true;
-  return false;
-}
+    if (bitmap._isImageBitmap) return true;
+    return false;
+  }
 
   private readonly $rgbOutOfBounds = new Uint8ClampedArray(RGB24_BLACK_PIXEL);
   private $width: number;
