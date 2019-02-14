@@ -1,8 +1,8 @@
 import { IDocument } from "../interfaces";
 import { NodeCanvas } from "./canvas";
 
-export const document: IDocument = {
+export class NodeDocument implements IDocument {
   createElement(el: "canvas") {
     return new NodeCanvas();
   }
-};
+}
