@@ -84,6 +84,10 @@ export type IRenderingContextType = "bitmaprenderer" | "2d";
  * @public
  */
 export interface IDocument {
+  /**
+   * Create an element. Only "canvas" is supported by both DOM and canvas-cleave.
+   * @param el - The name of the element to create.
+   */
   createElement(el: "canvas"): ICanvas;
 }
 
