@@ -1,4 +1,4 @@
-import { recordMethodCalls } from "../../test/helpers/mock";
+import { recordMethodCalls } from "../../test/mock";
 import { NodeImageBitmap } from "../imagebitmap";
 import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
