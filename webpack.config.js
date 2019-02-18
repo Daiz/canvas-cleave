@@ -26,7 +26,7 @@ module.exports = {
         use: {
           loader: "awesome-typescript-loader",
           options: {
-            configFileName: "tsconfig.dist.json"
+            configFileName: "config/tsconfig.dist.json"
           }
         },
         exclude: join(__dirname, "node_modules"),

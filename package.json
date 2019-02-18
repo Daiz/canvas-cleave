@@ -11,7 +11,7 @@
   "scripts": {
     "test": "jest",
     "start": "jest --watch",
-    "build:lib": "rimraf lib && tsc --build tsconfig.lib.json",
+    "build:lib": "rimraf lib && tsc --build config/tsconfig.lib.json",
     "build:dist": "rimraf dist && webpack",
     "build": "npm run build:lib && npm run build:dist",
     "api-extractor": "npm run build:lib && api-extractor run",
