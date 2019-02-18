@@ -1,4 +1,4 @@
-type CallRecord<T> = { [P in keyof T]?: () => void };
+type CallRecord<T> = { [P in keyof T]?: (...args: any[]) => void };
 
 export function recordMethodCalls<T extends object>(
   input: T
@@ -6,17 +6,17 @@ export function recordMethodCalls<T extends object>(
   const record: CallRecord<T> = {};
   return [
     new Proxy(input, {
-      get<K extends keyof T>(obj: T, prop: K): T[K] {
-        if (typeof obj[prop] === "function") {
-          if (record[prop] == null) record[prop] = jest.fn();
-          const method = (obj[prop] as unknown) as Function;
-          return (function(...args: any): any {
-            const result = method.apply(obj, args);
-            record[prop]!.apply(obj, args);
+      get<K extends keyof T>(obj: T, key: K): T[K] {
+        const prop = obj[key];
+        if (typeof prop === "function") {
+          if (record[key] == null) record[key] = jest.fn();
+          return (((...args: any[]): any => {
+            const result = prop.apply(obj, args);
+            record[key]!.apply(obj, args);
             return result;
-          } as unknown) as T[K];
+          }) as unknown) as T[K];
         }
-        return obj[prop];
+        return obj[key];
       }
     }),
     record
