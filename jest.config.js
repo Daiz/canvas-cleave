@@ -5,5 +5,6 @@ module.exports = {
   },
   testEnvironment: "node",
   testRegex: "\\.test\\.tsx?$",
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"]
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  collectCoverageFrom: ["src/**/*.tsx"]
 };
