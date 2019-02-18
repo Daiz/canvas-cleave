@@ -8,11 +8,13 @@
     "entryPointSourceFile": "lib/index.d.ts"
   },
   "apiReviewFile": {
-    "enabled": true,
-    "apiReviewFolder": "config"
+    "enabled": false
   },
   "apiJsonFile": {
+    "enabled": false
+  },
+  "dtsRollup": {
     "enabled": true,
-    "outputFolder": "config"
+    "trimming": false
   }
 }
