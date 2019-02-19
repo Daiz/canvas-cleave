@@ -52,6 +52,14 @@ test("width/height setters with negative values should use defaults instead", ()
   expect(canvas.height).toBe(DEFAULT_CANVAS_HEIGHT);
 });
 
+test("width/height setters with decimal values should be floored", () => {
+  const canvas = new NodeCanvas();
+  canvas.width = WIDTH + 0.4;
+  canvas.height = HEIGHT + 0.8;
+  expect(canvas.width).toBe(WIDTH);
+  expect(canvas.height).toBe(HEIGHT);
+});
+
 test(`getContext("bitmaprenderer") should return a NodeImageBitmapRenderingContext`, () => {
   const canvas = new NodeCanvas();
   const ctx = canvas.getContext("bitmaprenderer");
