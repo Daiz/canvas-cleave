@@ -40,12 +40,12 @@ export class NodeImage implements IImage {
   }
 
   set width(value: number) {
-    if (value < 0 || isNaN(value)) value = 0;
+    if (value < 0 || isNaN(value) || value === Infinity) value = 0;
     this.$width = value | 0;
   }
 
   set height(value: number) {
-    if (value < 0 || isNaN(value)) value = 0;
+    if (value < 0 || isNaN(value) || value === Infinity) value = 0;
     this.$height = value | 0;
   }
 

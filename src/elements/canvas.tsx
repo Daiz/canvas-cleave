@@ -40,11 +40,13 @@ export class NodeCanvas implements ICanvas {
 
   set width(value: number) {
     if (value < 0) value = DEFAULT_CANVAS_WIDTH;
+    if (value === Infinity) value = 0;
     this.$bitmap._resize(value | 0, this.$bitmap.height);
   }
 
   set height(value: number) {
     if (value < 0) value = DEFAULT_CANVAS_HEIGHT;
+    if (value === Infinity) value = 0;
     this.$bitmap._resize(this.$bitmap.width, value | 0);
   }
 

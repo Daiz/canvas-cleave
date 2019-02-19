@@ -60,6 +60,14 @@ test("width/height setters with decimal values should be floored", () => {
   expect(canvas.height).toBe(HEIGHT);
 });
 
+test("width/height setters with Infinity should use 0 instead", () => {
+  const canvas = new NodeCanvas(WIDTH, HEIGHT);
+  canvas.width = Infinity;
+  canvas.height = Infinity;
+  expect(canvas.width).toBe(0);
+  expect(canvas.height).toBe(0);
+});
+
 test(`getContext("bitmaprenderer") should return a NodeImageBitmapRenderingContext`, () => {
   const canvas = new NodeCanvas();
   const ctx = canvas.getContext("bitmaprenderer");
