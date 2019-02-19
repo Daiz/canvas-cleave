@@ -15,7 +15,7 @@
     "build:dist": "rimraf dist && webpack && api-extractor run --config config/api-extractor.dist.json",
     "build": "npm run build:lib && npm run build:dist",
     "coverage": "jest --coverage",
-    "api-extractor": "npm run build:lib && api-extractor run --local",
+    "api-extractor": "npm run build:lib && api-extractor run --local"
   },
   "author": "Daiz <daiz@limit.media>",
   "license": "UNLICENSED",
