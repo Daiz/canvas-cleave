@@ -40,12 +40,12 @@ export class NodeCanvas implements ICanvas {
 
   set width(value: number) {
     if (value < 0) value = DEFAULT_CANVAS_WIDTH;
-    this.$bitmap._resize(value, this.$bitmap.height);
+    this.$bitmap._resize(value | 0, this.$bitmap.height);
   }
 
   set height(value: number) {
     if (value < 0) value = DEFAULT_CANVAS_HEIGHT;
-    this.$bitmap._resize(this.$bitmap.width, value);
+    this.$bitmap._resize(this.$bitmap.width, value | 0);
   }
 
   getContext(context: "bitmaprenderer"): NodeImageBitmapRenderingContext;
