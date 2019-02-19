@@ -16,12 +16,14 @@
     "build": "npm run build:lib && npm run build:dist",
     "coverage": "jest --coverage",
     "api-extractor": "npm run build:lib && api-extractor run --local",
+    "docs": "npm run api-extractor && api-documenter markdown --input-folder config --output-folder docs"
   },
-  "author": "Daiz <daiz@limit.media>",
+  "author": "Daiz <taneli.vatanen@gmail.com>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.0.24",
     "@microsoft/api-extractor": "^7.0.17",
     "@types/jest": "^23.3.14",
     "@types/sharp": "^0.21.0",
