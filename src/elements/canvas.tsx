@@ -7,6 +7,9 @@ import {
 import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 
+export const DEFAULT_CANVAS_WIDTH = 0;
+export const DEFAULT_CANVAS_HEIGHT = 0;
+
 /**
  * @public
  */
@@ -15,7 +18,10 @@ export class NodeCanvas implements ICanvas {
 
   constructor(bitmap?: NodeImageBitmap);
   constructor(width: number, height: number);
-  constructor(widthOrBitmap: number | NodeImageBitmap = 0, height: number = 0) {
+  constructor(
+    widthOrBitmap: number | NodeImageBitmap = DEFAULT_CANVAS_WIDTH,
+    height: number = DEFAULT_CANVAS_HEIGHT
+  ) {
     if (typeof widthOrBitmap === "number") {
       this.$bitmap = new NodeImageBitmap();
       this.$bitmap._resize(widthOrBitmap, height);
@@ -33,10 +39,12 @@ export class NodeCanvas implements ICanvas {
   }
 
   set width(value: number) {
+    if (value < 0) value = DEFAULT_CANVAS_WIDTH;
     this.$bitmap._resize(value, this.$bitmap.height);
   }
 
   set height(value: number) {
+    if (value < 0) value = DEFAULT_CANVAS_HEIGHT;
     this.$bitmap._resize(this.$bitmap.width, value);
   }
 
@@ -58,7 +66,6 @@ export class NodeCanvas implements ICanvas {
         }
         return new NodeCanvasRenderingContext2D(this);
     }
-    console.log("this code should be unreachable?");
   }
 
   _getImageBitmap(): NodeImageBitmap {

@@ -2,7 +2,11 @@ import { recordMethodCalls } from "../../test/mock";
 import { NodeImageBitmap } from "../imagebitmap";
 import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
-import { NodeCanvas } from "./canvas";
+import {
+  DEFAULT_CANVAS_HEIGHT,
+  DEFAULT_CANVAS_WIDTH,
+  NodeCanvas
+} from "./canvas";
 
 const WIDTH = 300;
 const HEIGHT = 150;
@@ -38,6 +42,14 @@ test("width/height setters should resize the underlying NodeImageBitmap", () => 
   canvas.height = HEIGHT;
   expect(canvas.width).toBe(WIDTH);
   expect(canvas.height).toBe(HEIGHT);
+});
+
+test("width/height setters with negative values should use defaults instead", () => {
+  const canvas = new NodeCanvas(WIDTH, HEIGHT);
+  canvas.width = WIDTH * -1;
+  canvas.height = HEIGHT * -1;
+  expect(canvas.width).toBe(DEFAULT_CANVAS_WIDTH);
+  expect(canvas.height).toBe(DEFAULT_CANVAS_HEIGHT);
 });
 
 test(`getContext("bitmaprenderer") should return a NodeImageBitmapRenderingContext`, () => {
