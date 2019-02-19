@@ -226,9 +226,6 @@ export class NodeImageBitmap implements IImageBitmap {
   // drawImage-related functions
 
   _getRGB(x: number, y: number): Uint8ClampedArray {
-    if (x < 0) x += this.$width;
-    if (y < 0) y += this.$height;
-
     // return the out of bounds pixel if attempting to get out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return this.$rgbOutOfBounds;
@@ -239,9 +236,6 @@ export class NodeImageBitmap implements IImageBitmap {
   }
 
   _getAlpha(x: number, y: number): number {
-    if (x < 0) x += this.$width;
-    if (y < 0) y += this.$height;
-
     // return transparent or opaque value if attempting to get out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return this._hasAlpha ? 0 : 255;
@@ -260,9 +254,6 @@ export class NodeImageBitmap implements IImageBitmap {
     g?: number,
     b?: number
   ): void {
-    if (x < 0) x += this.$width;
-    if (y < 0) y += this.$height;
-
     // do nothing if attempting to set out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return;
@@ -284,8 +275,6 @@ export class NodeImageBitmap implements IImageBitmap {
 
   _setAlpha(x: number, y: number, alpha: number): void {
     if (!this._hasAlpha) return;
-    if (x < 0) x += this.$width;
-    if (y < 0) y += this.$height;
 
     // do nothing if attempting to set out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
@@ -302,9 +291,6 @@ export class NodeImageBitmap implements IImageBitmap {
     rgb: Uint8ClampedArray,
     alpha?: number
   ): void {
-    if (x < 0) x += this.$width;
-    if (y < 0) y += this.$height;
-
     // do nothing if attempting to draw out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return;
@@ -392,9 +378,6 @@ export class NodeImageBitmap implements IImageBitmap {
   // ImageData-related functions
 
   _getPixel(x: number, y: number): Uint8ClampedArray {
-    if (x < 0) x += this.$width;
-    if (y < 0) y += this.$height;
-
     // return a blank or black pixel if requested coordinates are out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return new Uint8ClampedArray(
@@ -413,9 +396,6 @@ export class NodeImageBitmap implements IImageBitmap {
   }
 
   _setPixel(x: number, y: number, pixel: Uint8ClampedArray): void {
-    if (x < 0) x += this.$width;
-    if (y < 0) y += this.$height;
-
     // do nothing if trying to set a pixel out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return;
