@@ -45,6 +45,9 @@ export interface NIRawImage {
   readonly data: Buffer;
 }
 
+// 1GB of memory max per image bitmap
+const MAXIMUM_MEMORY_SIZE = 1024 * 1024 * 1024;
+
 // supported image types by channel count
 const Y8 = 1; // gray (named after luma, shortened traditionally to Y)
 const Y16 = 2; // gray, alpha
@@ -190,11 +193,19 @@ export class NodeImageBitmap implements IImageBitmap {
   }
 
   _resize(width: number, height: number): void {
+    width = width < 0 || width === Infinity ? 0 : width | 0;
+    height = height < 0 || height === Infinity ? 0 : height | 0;
     const oldSize = this.$width * this.$height;
     const oldWidth = this.$width;
     const oldHeight = this.$height;
     const size = width * height;
     const alpha = this._hasAlpha ? 0 : 255;
+
+    if (size * RGB32 > MAXIMUM_MEMORY_SIZE) {
+      throw new Error(
+        "Trying to create an NodeImageBitmap larger than the maximum allowed memory size (1GB). Try to keep your width & height under 16384 pixels."
+      );
+    }
 
     this.$width = width;
     this.$height = height;
