@@ -1,3 +1,4 @@
+import { NodeImageData } from "./imagedata";
 import { IImageBitmap, IImageData } from "./interfaces";
 
 /**
@@ -451,11 +452,7 @@ export class NodeImageBitmap implements IImageBitmap {
         index += RGB32;
       }
     }
-    return {
-      width,
-      height,
-      data
-    };
+    return new NodeImageData(width, height, data);
   }
 
   _putImageData(imageData: IImageData, dx: number, dy: number): void;

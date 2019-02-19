@@ -54,7 +54,7 @@ export interface IImageBitmap {
 }
 
 /**
- * A cross-environment interface for image data objects that covers the properties supported by both DOM (as ImageData) and canvas-cleave (no specific class).
+ * A cross-environment interface for image data objects that covers the properties supported by both DOM (as ImageData) and canvas-cleave (as NodeImageData).
  * @public
  */
 export interface IImageData {

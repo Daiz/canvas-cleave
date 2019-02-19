@@ -1,10 +1,11 @@
 import { NodeCanvas } from "../elements/canvas";
 import { NodeImage } from "../elements/image";
 import { NodeImageBitmap } from "../imagebitmap";
+import { NodeImageData } from "../imagedata";
 import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 
 /**
- * Node interface for NodeCanvas.drawImage input image type support.
+ * Node interface for {@link NodeCanvasRenderingContext2D.drawImage} input type support.
  * @internal
  */
 export type _NINodeCanvasImageSource = NodeCanvas | NodeImage | NodeImageBitmap;
@@ -50,12 +51,7 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
       width = widthOrData.width;
       height = widthOrData.height;
     }
-    const size = width * height * 4;
-    return {
-      width,
-      height,
-      data: new Uint8ClampedArray(size)
-    };
+    return new NodeImageData(width, height);
   }
 
   getImageData(sx: number, sy: number, sw: number, sh: number): IImageData {
