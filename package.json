@@ -17,7 +17,7 @@
     "coverage": "jest --coverage",
     "api-extractor": "npm run build:lib && api-extractor run --local"
   },
-  "author": "Daiz <daiz@limit.media>",
+  "author": "Daiz <taneli.vatanen@gmail.com>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {},
