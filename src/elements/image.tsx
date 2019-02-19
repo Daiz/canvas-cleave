@@ -1,4 +1,4 @@
-import { NodeImageBitmap } from "../imagebitmap";
+import { NIRawImage, NodeImageBitmap } from "../imagebitmap";
 import { IImage } from "../interfaces";
 
 /**
@@ -68,8 +68,12 @@ export class NodeImage implements IImage {
     }
   }
 
-  constructor(bitmap?: NodeImageBitmap) {
-    this.$bitmap = bitmap || new NodeImageBitmap();
+  constructor(input?: NodeImageBitmap | NIRawImage) {
+    if (NodeImageBitmap.isImageBitmap(input)) {
+      this.$bitmap = input;
+    } else {
+      this.$bitmap = new NodeImageBitmap(input);
+    }
   }
 
   _getImageBitmap(): NodeImageBitmap {
