@@ -6,6 +6,10 @@ interface DocumentGlobal extends NodeJS.Global {
 }
 declare const global: DocumentGlobal;
 
+afterEach(() => {
+  NodeDocument.eject();
+});
+
 test(`document.createElement("canvas") should return a NodeCanvas object`, () => {
   const document = new NodeDocument();
   const canvas = document.createElement("canvas");
