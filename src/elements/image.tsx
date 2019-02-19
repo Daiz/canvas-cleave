@@ -6,8 +6,8 @@ import { IImage } from "../interfaces";
  */
 export class NodeImage implements IImage {
   private $bitmap: NodeImageBitmap;
-  private $width: number = 0;
-  private $height: number = 0;
+  private $width?: number;
+  private $height?: number;
   private $complete: boolean = true;
   public src: string = "";
 
@@ -15,12 +15,28 @@ export class NodeImage implements IImage {
     return this.$complete;
   }
 
+  private get $aspectRatio(): number {
+    return this.$bitmap.width / this.$bitmap.height;
+  }
+
   get width(): number {
-    return this.$width || this.$bitmap.width;
+    if (this.$width != null) {
+      return this.$width;
+    } else if (this.$height != null) {
+      return Math.round(this.$height * this.$aspectRatio);
+    } else {
+      return this.$bitmap.width;
+    }
   }
 
   get height(): number {
-    return this.$height || this.$bitmap.height;
+    if (this.$height != null) {
+      return this.$height;
+    } else if (this.$width != null) {
+      return Math.round(this.$width / this.$aspectRatio);
+    } else {
+      return this.$bitmap.height;
+    }
   }
 
   set width(value: number) {
@@ -39,11 +55,26 @@ export class NodeImage implements IImage {
     return this.$bitmap.height;
   }
 
+  removeAttribute(attr: "width" | "height"): void {
+    switch (attr) {
+      case "width":
+        this.$width = undefined;
+        break;
+      case "height":
+        this.$height = undefined;
+        break;
+    }
+  }
+
   constructor(bitmap?: NodeImageBitmap) {
     this.$bitmap = bitmap || new NodeImageBitmap();
   }
 
   _getImageBitmap(): NodeImageBitmap {
     return this.$bitmap;
+  }
+
+  _setImageBitmap(bitmap: NodeImageBitmap): void {
+    this.$bitmap = bitmap;
   }
 }

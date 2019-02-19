@@ -12,13 +12,18 @@ export interface IImage {
    */
   readonly naturalHeight: number;
   /**
-   * The display width of the image.
+   * The DOM display width of the image.
    */
   width: number;
   /**
-   * The display height of the image.
+   * The DOM display height of the image.
    */
   height: number;
+  /**
+   * Unset the DOM width and height parameters.
+   * @param attr - The name of the attribute to remove. "width" or "height".
+   */
+  removeAttribute(attr: "width" | "height"): void;
   /**
    * Is the image loaded?
    */
