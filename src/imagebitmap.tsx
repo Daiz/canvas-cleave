@@ -366,8 +366,13 @@ export class NodeImageBitmap implements IImageBitmap {
       // non-standard error since we don't handle resizing
       throw new Error(DRAW_IMAGE_NO_RESIZE_ERROR);
     }
+    // TODO: drawRow optimization for non-alpha images
     for (let y = 0; y < sh; ++y) {
+      if (y < 0) continue;
+      if (y >= this.$height) break;
       for (let x = 0; x < sw; ++x) {
+        if (x < 0) continue;
+        if (x >= this.$width) break;
         const rgb = image._getRGB(sx + x, sy + y);
         const alpha = image._getAlpha(sx + x, sy + y);
         this._drawPixel(dx + x, dy + y, rgb, alpha);
