@@ -1,3 +1,4 @@
+import { NodeImage } from "./elements/image";
 import { NodeImageData } from "./imagedata";
 import { IImageBitmap, IImageData } from "./interfaces";
 
@@ -475,6 +476,10 @@ export class NodeImageBitmap implements IImageBitmap {
     dirtyHeight?: number
   ): void {
     // TODO: implement
+  }
+
+  _toImage(): NodeImage {
+    return new NodeImage(this);
   }
 
   _toRawImage(): NIRawImage {
