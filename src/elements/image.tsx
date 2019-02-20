@@ -15,7 +15,10 @@ export class NodeImage implements IImage {
     return this.$complete;
   }
 
-  private get $aspectRatio(): number {
+  /**
+   * @internal
+   */
+  get _aspectRatio(): number {
     return this.$bitmap.width / this.$bitmap.height;
   }
 
@@ -23,7 +26,7 @@ export class NodeImage implements IImage {
     if (this.$width != null) {
       return this.$width;
     } else if (this.$height != null) {
-      return Math.round(this.$height * this.$aspectRatio);
+      return Math.round(this.$height * this._aspectRatio);
     } else {
       return this.$bitmap.width;
     }
@@ -33,7 +36,7 @@ export class NodeImage implements IImage {
     if (this.$height != null) {
       return this.$height;
     } else if (this.$width != null) {
-      return Math.round(this.$width / this.$aspectRatio);
+      return Math.round(this.$width / this._aspectRatio);
     } else {
       return this.$bitmap.height;
     }
