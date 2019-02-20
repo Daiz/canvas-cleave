@@ -23,7 +23,7 @@ test("constructor with width/height arguments should return a canvas with the gi
   expect(canvas.height).toBe(HEIGHT);
 });
 
-test("constructor with a NodeImageBitmap argument should return a canvas initialized with said image bitmap", () => {
+test("constructor with a NodeImageBitmap argument should return a canvas initialized with the given bitmap", () => {
   const bitmap = new NodeImageBitmap();
   const canvas = new NodeCanvas(bitmap);
   expect(canvas._getImageBitmap()).toBe(bitmap);
