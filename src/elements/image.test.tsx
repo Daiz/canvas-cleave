@@ -53,3 +53,37 @@ test("NodeImage.width/height should return the width/height of the underlying bi
   expect(image.width).toBe(bitmap.width);
   expect(image.height).toBe(bitmap.height);
 });
+
+test("NodeImage.width/height should return their own values if set", () => {
+  const image = new NodeImage();
+  image.width = WIDTH;
+  image.height = HEIGHT;
+  expect(image.width).toBe(WIDTH);
+  expect(image.height).toBe(HEIGHT);
+});
+
+test("NodeImage.width/height should be set to 0 if called with negative values, NaN or Infinity", () => {
+  const image = new NodeImage();
+  image.width = -Infinity;
+  image.height = -Infinity;
+  expect(image.width).toBe(0);
+  expect(image.height).toBe(0);
+  image.width = NaN;
+  image.height = NaN;
+  expect(image.width).toBe(0);
+  expect(image.height).toBe(0);
+  image.width = Infinity;
+  image.height = Infinity;
+  expect(image.width).toBe(0);
+  expect(image.height).toBe(0);
+});
+
+test("NodeImage.naturalWidth/naturalHeight should always return the underlying bitmap width/height, regardless of what NodeImage.width/height are set to", () => {
+  const bitmap = new NodeImageBitmap();
+  bitmap._resize(WIDTH, HEIGHT);
+  const image = new NodeImage(bitmap);
+  image.width = HEIGHT;
+  image.height = WIDTH;
+  expect(image.naturalWidth).toBe(WIDTH);
+  expect(image.naturalHeight).toBe(HEIGHT);
+});
