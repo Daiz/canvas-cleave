@@ -1,6 +1,5 @@
-import { NodeCanvas } from "../elements/canvas";
-import { NodeImage } from "../elements/image";
 import { NodeImageBitmap } from "../imagebitmap";
+import { _NINodeCanvas, _NINodeImage } from "../imagebitmapconsumer";
 import { NodeImageData } from "../imagedata";
 import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 
@@ -8,13 +7,16 @@ import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
  * Node interface for {@link NodeCanvasRenderingContext2D.drawImage} input type support.
  * @internal
  */
-export type _NINodeCanvasImageSource = NodeCanvas | NodeImage | NodeImageBitmap;
+export type _NINodeCanvasImageSource =
+  | _NINodeCanvas
+  | _NINodeImage
+  | NodeImageBitmap;
 
 /**
  * @public
  */
 export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
-  constructor(public readonly canvas: NodeCanvas) {}
+  constructor(public readonly canvas: _NINodeCanvas) {}
 
   drawImage(image: _NINodeCanvasImageSource, dx: number, dy: number): void;
   drawImage(
