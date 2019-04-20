@@ -11,5 +11,5 @@
     ],
     "unified-signatures": true
   },
-  "extends": ["tslint-config-prettier"]
+  "extends": ["tslint-config-prettier", "tslint-no-circular-imports"]
 }
