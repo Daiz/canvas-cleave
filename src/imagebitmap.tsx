@@ -10,7 +10,7 @@ export interface NIRawImageInfo {
   /**
    * The format of the image.
    */
-  readonly format: "raw";
+  readonly format?: "raw";
   /**
    * The width of the image in pixels.
    */
@@ -24,13 +24,13 @@ export interface NIRawImageInfo {
    */
   readonly channels: 1 | 2 | 3 | 4;
   /**
-   * Does the image have premultiplied alpha? Should be always false as canvas-cleave does not support premultiplied alpha.
+   * Does the image have premultiplied alpha? If present, should always be false as canvas-cleave does not support premultiplied alpha.
    */
-  readonly premultiplied: false;
+  readonly premultiplied?: boolean;
   /**
-   * The size of the image in bytes. Equal to width * height * channels.
+   * The size of the image in bytes. If present, must be equal to width * height * channels.
    */
-  readonly size: number;
+  readonly size?: number;
 }
 /**
  * Node interface for passing around raw image data.
@@ -63,8 +63,14 @@ const YA = 1; // Y16 alpha
 
 const INVALID_RAW_IMAGE_CHANNELS_ERROR =
   "Raw image data must consist of 1-4 channels.";
+const INVALID_RAW_IMAGE_DIMENSIONS_ERROR =
+  "Image dimensions cannot be negative.";
 const INVALID_RAW_IMAGE_SIZE_ERROR =
   "Raw image data buffer size must match the value of width * height * channels provided in the info object.";
+const INVALID_RAW_IMAGE_SIZE_METADATA_ERROR =
+  "Raw image data buffer size must match the value of size provided in the info object.";
+const PREMULTIPLIED_ALPHA_NOT_SUPPORTED_ERROR =
+  "Premultiplied alpha is not supported by canvas-cleave.";
 const RGB24_SIZE_ERROR = "RGB24 pixel array must have exactly 3 values.";
 const RGB32_SIZE_ERROR = "RGB32 pixel array must have exactly 4 values.";
 const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
@@ -81,7 +87,7 @@ const RGB32_BLANK_PIXEL = new Uint8ClampedArray([0, 0, 0, 0]);
  */
 export class NodeImageBitmap implements IImageBitmap {
   static isImageBitmap(bitmap: any): bitmap is NodeImageBitmap {
-    if (bitmap._isImageBitmap) return true;
+    if (bitmap && bitmap._isImageBitmap) return true;
     return false;
   }
 
@@ -144,8 +150,20 @@ export class NodeImageBitmap implements IImageBitmap {
     }
     const { data, info } = input;
 
+    if (info.width < 0 || info.height < 0) {
+      throw new Error(INVALID_RAW_IMAGE_DIMENSIONS_ERROR);
+    }
+
     if (data.length !== info.width * info.height * info.channels) {
       throw new Error(INVALID_RAW_IMAGE_SIZE_ERROR);
+    }
+
+    if (info.size && data.length !== info.size) {
+      throw new Error(INVALID_RAW_IMAGE_SIZE_METADATA_ERROR);
+    }
+
+    if (info.premultiplied != null && info.premultiplied === true) {
+      throw new Error(PREMULTIPLIED_ALPHA_NOT_SUPPORTED_ERROR);
     }
 
     this.$width = info.width;
