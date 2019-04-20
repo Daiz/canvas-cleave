@@ -1,4 +1,4 @@
-import { NIRawImage, NodeImageBitmap } from "../imagebitmap";
+import { _NodeImageBitmapConsumer } from "../imagebitmapconsumer";
 import {
   ICanvas,
   IRenderingContextOptions,
@@ -13,17 +13,7 @@ export const DEFAULT_CANVAS_HEIGHT = 0;
 /**
  * @public
  */
-export class NodeCanvas implements ICanvas {
-  private $bitmap: NodeImageBitmap;
-
-  constructor(input?: NodeImageBitmap | NIRawImage) {
-    if (NodeImageBitmap.isImageBitmap(input)) {
-      this.$bitmap = input;
-    } else {
-      this.$bitmap = new NodeImageBitmap(input);
-    }
-  }
-
+export class NodeCanvas extends _NodeImageBitmapConsumer implements ICanvas {
   get width(): number {
     return this.$bitmap.width;
   }
@@ -62,17 +52,5 @@ export class NodeCanvas implements ICanvas {
         }
         return new NodeCanvasRenderingContext2D(this);
     }
-  }
-
-  _getImageBitmap(): NodeImageBitmap {
-    return this.$bitmap;
-  }
-
-  _setImageBitmap(bitmap: NodeImageBitmap): void {
-    this.$bitmap = bitmap;
-  }
-
-  toRawImage(): NIRawImage {
-    return this.$bitmap._toRawImage();
   }
 }
