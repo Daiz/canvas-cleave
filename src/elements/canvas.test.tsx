@@ -1,3 +1,4 @@
+import images from "../../test/images";
 import { recordMethodCalls } from "../../test/mock";
 import { NodeImageBitmap } from "../imagebitmap";
 import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
@@ -17,20 +18,23 @@ test("constructor with no arguments should return a canvas with zero width/heigh
   expect(canvas.height).toBe(0);
 });
 
-test("constructor with width/height arguments should return a canvas with the given dimensions", () => {
-  const canvas = new NodeCanvas(WIDTH, HEIGHT);
-  expect(canvas.width).toBe(WIDTH);
-  expect(canvas.height).toBe(HEIGHT);
-});
-
 test("constructor with a NodeImageBitmap argument should return a canvas initialized with the given bitmap", () => {
   const bitmap = new NodeImageBitmap();
   const canvas = new NodeCanvas(bitmap);
   expect(canvas._getImageBitmap()).toBe(bitmap);
 });
 
+test("constructor with a NIRawImage argument should return a canvas initialized with a bitmap from the raw image data", () => {
+  const canvas = new NodeCanvas(images.rawImage);
+  expect(canvas.width).toBe(2);
+  expect(canvas.height).toBe(1);
+  expect(canvas._getImageBitmap()._hasAlpha).toBe(true);
+});
+
 test("width/height getters should return the width/height of the underlying NodeImageBitmap", () => {
-  const canvas = new NodeCanvas(WIDTH, HEIGHT);
+  const canvas = new NodeCanvas();
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
   const bitmap = canvas._getImageBitmap();
   expect(canvas.width).toBe(bitmap.width);
   expect(canvas.height).toBe(bitmap.height);
@@ -45,7 +49,9 @@ test("width/height setters should resize the underlying NodeImageBitmap", () => 
 });
 
 test("width/height setters with negative values should use defaults instead", () => {
-  const canvas = new NodeCanvas(WIDTH, HEIGHT);
+  const canvas = new NodeCanvas();
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
   canvas.width = WIDTH * -1;
   canvas.height = HEIGHT * -1;
   expect(canvas.width).toBe(DEFAULT_CANVAS_WIDTH);
@@ -61,7 +67,9 @@ test("width/height setters with decimal values should be floored", () => {
 });
 
 test("width/height setters with Infinity should use 0 instead", () => {
-  const canvas = new NodeCanvas(WIDTH, HEIGHT);
+  const canvas = new NodeCanvas();
+  canvas.width = WIDTH;
+  canvas.height = HEIGHT;
   canvas.width = Infinity;
   canvas.height = Infinity;
   expect(canvas.width).toBe(0);

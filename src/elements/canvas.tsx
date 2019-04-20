@@ -16,17 +16,11 @@ export const DEFAULT_CANVAS_HEIGHT = 0;
 export class NodeCanvas implements ICanvas {
   private $bitmap: NodeImageBitmap;
 
-  constructor(bitmap?: NodeImageBitmap);
-  constructor(width: number, height: number);
-  constructor(
-    widthOrBitmap: number | NodeImageBitmap = DEFAULT_CANVAS_WIDTH,
-    height: number = DEFAULT_CANVAS_HEIGHT
-  ) {
-    if (typeof widthOrBitmap === "number") {
-      this.$bitmap = new NodeImageBitmap();
-      this.$bitmap._resize(widthOrBitmap, height);
+  constructor(input?: NodeImageBitmap | NIRawImage) {
+    if (NodeImageBitmap.isImageBitmap(input)) {
+      this.$bitmap = input;
     } else {
-      this.$bitmap = widthOrBitmap;
+      this.$bitmap = new NodeImageBitmap(input);
     }
   }
 
