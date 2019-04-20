@@ -86,4 +86,8 @@ export class NodeImage implements IImage {
   _setImageBitmap(bitmap: NodeImageBitmap): void {
     this.$bitmap = bitmap;
   }
+
+  toRawImage(): NIRawImage {
+    return this.$bitmap._toRawImage();
+  }
 }
