@@ -2,24 +2,24 @@ import { NIRawImage, NodeImageBitmap } from "./imagebitmap";
 import { ICanvas, IImage } from "./interfaces";
 
 /**
- * @internal
+ * @public
  */
-export type _NINodeCanvas = ICanvas & _NodeImageBitmapConsumer;
+export type NINodeCanvas = ICanvas & NodeImageBitmapConsumer;
 
 /**
- * @internal
+ * @public
  */
-export type _NINodeImage = IImage & _NodeImageBitmapConsumer;
+export type NINodeImage = IImage & NodeImageBitmapConsumer;
 
 /**
- * @internal
+ * @public
  */
-export abstract class _NodeImageBitmapConsumer {
+export abstract class NodeImageBitmapConsumer {
   protected $bitmap: NodeImageBitmap;
 
   /**
    * Create a new bitmap consumer.
-   * @param input Input value for initializing the consumer's bitmap.
+   * @param input - Input value for initializing the consumer's bitmap.
    */
   constructor(input?: NodeImageBitmap | NIRawImage) {
     if (NodeImageBitmap.isImageBitmap(input)) {
@@ -38,7 +38,7 @@ export abstract class _NodeImageBitmapConsumer {
   }
 
   /**
-   * @param bitmap The bitmap to set the consumer's internal bitmap to.
+   * @param bitmap - The bitmap to set the consumer's internal bitmap to.
    * @internal
    */
   _setImageBitmap(bitmap: NodeImageBitmap): void {

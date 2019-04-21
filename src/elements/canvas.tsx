@@ -1,4 +1,4 @@
-import { _NodeImageBitmapConsumer } from "../imagebitmapconsumer";
+import { NodeImageBitmapConsumer } from "../imagebitmapconsumer";
 import { ICanvas, IRenderingContextOptions } from "../interfaces";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 
@@ -8,7 +8,7 @@ export const DEFAULT_CANVAS_HEIGHT = 0;
 /**
  * @public
  */
-export class NodeCanvas extends _NodeImageBitmapConsumer implements ICanvas {
+export class NodeCanvas extends NodeImageBitmapConsumer implements ICanvas {
   get width(): number {
     return this.$bitmap.width;
   }

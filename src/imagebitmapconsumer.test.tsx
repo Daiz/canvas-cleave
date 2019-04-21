@@ -1,9 +1,9 @@
 import images from "../test/images";
 import { recordMethodCalls } from "../test/mock";
 import { NodeImageBitmap } from "./imagebitmap";
-import { _NodeImageBitmapConsumer } from "./imagebitmapconsumer";
+import { NodeImageBitmapConsumer } from "./imagebitmapconsumer";
 
-class TestConsumer extends _NodeImageBitmapConsumer {}
+class TestConsumer extends NodeImageBitmapConsumer {}
 
 test("constructor with no arguments should return a consumer with 0x0 underlying bitmap", () => {
   const test = new TestConsumer();

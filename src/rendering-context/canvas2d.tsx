@@ -1,26 +1,26 @@
 import { NodeImageBitmap } from "../imagebitmap";
-import { _NINodeCanvas, _NINodeImage } from "../imagebitmapconsumer";
+import { NINodeCanvas, NINodeImage } from "../imagebitmapconsumer";
 import { NodeImageData } from "../imagedata";
 import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 
 /**
  * Node interface for {@link NodeCanvasRenderingContext2D} input image type support.
- * @internal
+ * @public
  */
-export type _NINodeCanvasImageSource =
-  | _NINodeCanvas
-  | _NINodeImage
+export type NINodeCanvasImageSource =
+  | NINodeCanvas
+  | NINodeImage
   | NodeImageBitmap;
 
 /**
  * @public
  */
 export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
-  constructor(public readonly canvas: _NINodeCanvas) {}
+  constructor(public readonly canvas: NINodeCanvas) {}
 
-  drawImage(image: _NINodeCanvasImageSource, dx: number, dy: number): void;
+  drawImage(image: NINodeCanvasImageSource, dx: number, dy: number): void;
   drawImage(
-    image: _NINodeCanvasImageSource,
+    image: NINodeCanvasImageSource,
     sx: number,
     sy: number,
     sw: number,
@@ -31,7 +31,7 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
     dh: number
   ): void;
   drawImage(): void {
-    const input: _NINodeCanvasImageSource = arguments[0];
+    const input: NINodeCanvasImageSource = arguments[0];
     arguments[0] = NodeImageBitmap.isImageBitmap(input)
       ? input
       : input._getImageBitmap();

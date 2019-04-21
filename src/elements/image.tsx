@@ -1,10 +1,10 @@
-import { _NodeImageBitmapConsumer } from "../imagebitmapconsumer";
+import { NodeImageBitmapConsumer } from "../imagebitmapconsumer";
 import { IImage } from "../interfaces";
 
 /**
  * @public
  */
-export class NodeImage extends _NodeImageBitmapConsumer implements IImage {
+export class NodeImage extends NodeImageBitmapConsumer implements IImage {
   private $width?: number;
   private $height?: number;
   private $complete: boolean = true;

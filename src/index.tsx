@@ -3,9 +3,9 @@ export { NodeDocument } from "./elements/document";
 export { NodeImage } from "./elements/image";
 export { NIRawImage, NIRawImageInfo, NodeImageBitmap } from "./imagebitmap";
 export {
-  _NINodeCanvas,
-  _NINodeImage,
-  _NodeImageBitmapConsumer
+  NINodeCanvas,
+  NINodeImage,
+  NodeImageBitmapConsumer
 } from "./imagebitmapconsumer";
 export { NodeImageData } from "./imagedata";
 export {
@@ -21,6 +21,6 @@ export {
   IRenderingContextOptions
 } from "./interfaces";
 export {
-  NodeCanvasRenderingContext2D,
-  _NINodeCanvasImageSource
+  NINodeCanvasImageSource,
+  NodeCanvasRenderingContext2D
 } from "./rendering-context/canvas2d";
