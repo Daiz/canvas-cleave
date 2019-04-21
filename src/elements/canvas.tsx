@@ -6,13 +6,20 @@ export const DEFAULT_CANVAS_WIDTH = 0;
 export const DEFAULT_CANVAS_HEIGHT = 0;
 
 /**
+ * A limited Node implementation for DOM HTMLCanvasElement.
  * @public
  */
 export class NodeCanvas extends NodeImageBitmapConsumer implements ICanvas {
+  /**
+   * The width of the canvas element.
+   */
   get width(): number {
     return this.$bitmap.width;
   }
 
+  /**
+   * The height of the canvas element.
+   */
   get height(): number {
     return this.$bitmap.height;
   }
@@ -29,6 +36,9 @@ export class NodeCanvas extends NodeImageBitmapConsumer implements ICanvas {
     this.$bitmap._resize(this.$bitmap.width, value | 0);
   }
 
+  /**
+   * {@inheritDoc ICanvas.getContext}
+   */
   getContext(
     context: "2d",
     options?: IRenderingContextOptions
