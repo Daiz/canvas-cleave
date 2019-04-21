@@ -7,7 +7,7 @@ interface DocumentGlobal extends NodeJS.Global {
 declare const global: DocumentGlobal;
 
 /**
- * A minimal Node implementation for the DOM Document object to enable cross-environment creation of `canvas` elements using `document.createElement("canvas")`.
+ * A limited Node implementation for the DOM Document to enable cross-environment creation of `canvas` elements using `document.createElement("canvas")`.
  * @public
  */
 export class NodeDocument implements IDocument {
