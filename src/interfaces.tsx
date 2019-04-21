@@ -178,7 +178,7 @@ export interface ICanvasRenderingContext2D {
   /**
    * Get ImageData for the defined region of the canvas.
    * @param sx - The x coordinate of the region.
-   * @param sy - The y coordiante of the region.
+   * @param sy - The y coordinate of the region.
    * @param sw - The width of the region. Can be negative to extend left.
    * @param sh - The height of the region. Can be negative to extend up.
    */
