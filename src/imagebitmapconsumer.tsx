@@ -45,7 +45,10 @@ export abstract class NodeImageBitmapConsumer {
     this.$bitmap = bitmap;
   }
 
+  /**
+   * Export the contents of the underlying bitmap as a {@link NIRawImage}.
+   */
   toRawImage(): NIRawImage {
-    return this.$bitmap._toRawImage();
+    return this.$bitmap.toRawImage();
   }
 }

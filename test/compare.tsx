@@ -19,15 +19,27 @@ async function dHash(source: NIRawImage): Promise<number[]> {
   return hash;
 }
 
+export function isRawImage(input: any): input is NIRawImage {
+  if (
+    input.info &&
+    typeof input.info.width === "number" &&
+    typeof input.info.height === "number" &&
+    typeof input.info.channels === "number" &&
+    input.data instanceof Buffer &&
+    input.data.length ===
+      input.info.width * input.info.height * input.info.channels
+  )
+    return true;
+  return false;
+}
+
 export async function isSimilar(
   expected: NIRawImage | NodeCanvas | NodeImageBitmap,
   received: NIRawImage | NodeCanvas | NodeImageBitmap,
   threshold: number = 5
 ): Promise<boolean> {
-  if (expected instanceof NodeCanvas) expected = expected.toRawImage();
-  if (expected instanceof NodeImageBitmap) expected = expected._toRawImage();
-  if (received instanceof NodeCanvas) received = received.toRawImage();
-  if (received instanceof NodeImageBitmap) received = received._toRawImage();
+  if (!isRawImage(expected)) expected = expected.toRawImage();
+  if (!isRawImage(received)) received = received.toRawImage();
   const expectedHash = await dHash(expected);
   const receivedHash = await dHash(received);
 

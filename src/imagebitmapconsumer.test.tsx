@@ -41,7 +41,7 @@ test("_setImageBitmap should set the consumer bitmap to the given bitmap", () =>
 
 test("toRawImage should call the implementation of the underlying bitmap", () => {
   const [bitmap, bitmapRecord] = recordMethodCalls(new NodeImageBitmap());
-  const canvas = new TestConsumer(bitmap);
-  canvas.toRawImage();
-  expect(bitmapRecord._toRawImage).toHaveBeenCalled();
+  const test = new TestConsumer(bitmap);
+  test.toRawImage();
+  expect(bitmapRecord.toRawImage).toHaveBeenCalled();
 });

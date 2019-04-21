@@ -1,5 +1,6 @@
 import sharp from "sharp";
 import { NIRawImage, NodeCanvas, NodeImageBitmap } from "../src";
+import { isRawImage } from "./compare";
 
 const LOAD_IMAGE_OPTS = {
   resolveWithObject: true as true
@@ -17,8 +18,7 @@ export async function saveImage(
   target: string,
   rawImage: NIRawImage | NodeImageBitmap | NodeCanvas
 ): Promise<sharp.OutputInfo> {
-  if (rawImage instanceof NodeCanvas) rawImage = rawImage.toRawImage();
-  if (rawImage instanceof NodeImageBitmap) rawImage = rawImage._toRawImage();
+  if (!isRawImage(rawImage)) rawImage = rawImage.toRawImage();
   const { data, info } = rawImage;
   return await sharp(data, { raw: info })
     .png()

@@ -601,9 +601,9 @@ export class NodeImageBitmap implements IImageBitmap {
 
   /**
    * Export the contents of the bitmap as a {@link NIRawImage}.
-   * @internal
+   * @public
    */
-  _toRawImage(): NIRawImage {
+  toRawImage(): NIRawImage {
     const channels = this._hasAlpha ? 4 : 3;
     const width = this.$width;
     const height = this.$height;
