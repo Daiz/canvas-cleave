@@ -13,7 +13,7 @@ declare const global: DocumentGlobal;
 export class NodeDocument implements IDocument {
   /**
    * Create an element. Only "canvas" is supported by this implementation.
-   * @param el The name of the element to be created. Must be "canvas".
+   * @param el - The name of the element to be created. Must be "canvas".
    */
   createElement(el: "canvas"): NodeCanvas {
     return new NodeCanvas();
