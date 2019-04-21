@@ -47,10 +47,6 @@ export interface IImageBitmap {
    * The height of the image bitmap.
    */
   readonly height: number;
-  /**
-   * Disposes of the data associated with this image bitmap. The bitmap cannot be used afterwards.
-   */
-  close(): void;
 }
 
 /**

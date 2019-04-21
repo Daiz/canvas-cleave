@@ -100,22 +100,15 @@ export class NodeImageBitmap implements IImageBitmap {
   private $rgb: Uint8ClampedArray;
   private $alpha: Uint8ClampedArray;
   private $hasAlpha: boolean = true;
-  private $closed: boolean = false;
 
   public readonly _isImageBitmap: true = true;
   public readonly _premultipliedAlpha: false = false;
 
-  close(): void {
-    this.$closed = true;
-  }
-
   get width(): number {
-    if (this.$closed) return 0;
     return this.$width;
   }
 
   get height(): number {
-    if (this.$closed) return 0;
     return this.$height;
   }
 
@@ -129,12 +122,10 @@ export class NodeImageBitmap implements IImageBitmap {
   }
 
   get _rgbData(): Uint8ClampedArray {
-    if (this.$closed) return EMPTY;
     return this.$rgb;
   }
 
   get _alphaData(): Uint8ClampedArray {
-    if (this.$closed) return EMPTY;
     return this.$alpha;
   }
 
