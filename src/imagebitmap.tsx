@@ -442,9 +442,6 @@ export class NodeImageBitmap implements IImageBitmap {
     width: number,
     height: number
   ): IImageData {
-    if (sx < 0) sx += this.$width;
-    if (sy < 0) sy += this.$height;
-
     // transform left/top-extending rectangles (negative width/height)
     // into regular right/bottom-extending rectangles
     if (width < 0) {
