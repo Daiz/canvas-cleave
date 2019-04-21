@@ -4,7 +4,7 @@ import { NodeImageData } from "../imagedata";
 import { ICanvasRenderingContext2D, IImageData } from "../interfaces";
 
 /**
- * Node interface for {@link NodeCanvasRenderingContext2D.drawImage} input type support.
+ * Node interface for {@link NodeCanvasRenderingContext2D} input image type support.
  * @internal
  */
 export type _NINodeCanvasImageSource =

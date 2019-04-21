@@ -75,12 +75,6 @@ export interface IImageData {
 export type ICanvasImageSource = ICanvas | IImage | IImageBitmap;
 
 /**
- * A cross-environment type that covers the supported canvas rendering context types of the canvas.getContext function in both DOM (in HTMLCanvasElement) and canvas-cleave (in NodeCanvas).
- * @public
- */
-export type IRenderingContextType = "bitmaprenderer" | "2d";
-
-/**
  * A cross-environment interface that covers the method supported by both DOM (as document) and canvas-cleave (as document).
  * @public
  */
@@ -116,11 +110,6 @@ export interface ICanvas {
    * The height of the canvas.
    */
   height: number;
-  /**
-   * Get a image bitmap rendering context for the canvas.
-   * @param context - The context to request.
-   */
-  getContext(context: "bitmaprenderer"): IImageBitmapRenderingContext;
   /**
    * Get a 2D rendering context for the canvas.
    * @param context - The context to request.

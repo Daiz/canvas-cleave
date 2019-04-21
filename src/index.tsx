@@ -18,10 +18,8 @@ export {
   IImageBitmapRenderingContext,
   IImageData,
   IRenderingContext,
-  IRenderingContextOptions,
-  IRenderingContextType
+  IRenderingContextOptions
 } from "./interfaces";
-export { NodeImageBitmapRenderingContext } from "./rendering-context/bitmap";
 export {
   NodeCanvasRenderingContext2D,
   _NINodeCanvasImageSource

@@ -1,4 +1,3 @@
-import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 import {
   DEFAULT_CANVAS_HEIGHT,
@@ -52,12 +51,6 @@ test("width/height setters with Infinity should use 0 instead", () => {
   canvas.height = Infinity;
   expect(canvas.width).toBe(0);
   expect(canvas.height).toBe(0);
-});
-
-test(`getContext("bitmaprenderer") should return a NodeImageBitmapRenderingContext`, () => {
-  const canvas = new NodeCanvas();
-  const ctx = canvas.getContext("bitmaprenderer");
-  expect(ctx).toBeInstanceOf(NodeImageBitmapRenderingContext);
 });
 
 test(`getContext("2d") should return a NodeCanvasRenderingContext2D`, () => {

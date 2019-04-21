@@ -1,10 +1,5 @@
 import { _NodeImageBitmapConsumer } from "../imagebitmapconsumer";
-import {
-  ICanvas,
-  IRenderingContextOptions,
-  IRenderingContextType
-} from "../interfaces";
-import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
+import { ICanvas, IRenderingContextOptions } from "../interfaces";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 
 export const DEFAULT_CANVAS_WIDTH = 0;
@@ -34,23 +29,13 @@ export class NodeCanvas extends _NodeImageBitmapConsumer implements ICanvas {
     this.$bitmap._resize(this.$bitmap.width, value | 0);
   }
 
-  getContext(context: "bitmaprenderer"): NodeImageBitmapRenderingContext;
   getContext(
     context: "2d",
     options?: IRenderingContextOptions
-  ): NodeCanvasRenderingContext2D;
-  getContext(
-    context: IRenderingContextType,
-    options?: IRenderingContextOptions
-  ): NodeImageBitmapRenderingContext | NodeCanvasRenderingContext2D {
-    switch (context) {
-      case "bitmaprenderer":
-        return new NodeImageBitmapRenderingContext(this);
-      case "2d":
-        if (options) {
-          this.$bitmap._hasAlpha = options.alpha;
-        }
-        return new NodeCanvasRenderingContext2D(this);
+  ): NodeCanvasRenderingContext2D {
+    if (options) {
+      this.$bitmap._hasAlpha = options.alpha;
     }
+    return new NodeCanvasRenderingContext2D(this);
   }
 }
