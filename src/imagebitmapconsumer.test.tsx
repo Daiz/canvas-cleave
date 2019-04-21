@@ -19,11 +19,11 @@ test("constructor with a NodeImageBitmap argument should return a consumer initi
 });
 
 test("constructor with a NIRawImage argument should return a consumer initialized with a bitmap from the raw image data", () => {
-  const test = new TestConsumer(images.rawImage);
+  const test = new TestConsumer(images.rawImage4x1);
   const bitmap = test._getImageBitmap();
-  expect(bitmap.width).toBe(2);
+  expect(bitmap.width).toBe(4);
   expect(bitmap.height).toBe(1);
-  expect(bitmap._hasAlpha).toBe(true);
+  expect(bitmap._hasAlpha).toBe(false);
 });
 
 test("_getImageBitmap should return the underlying bitmap of the consumer", () => {

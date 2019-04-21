@@ -1,14 +1,28 @@
 import { resolve } from "path";
 import { NIRawImage } from "../src";
 
-const mock: NIRawImage = {
+const rawImage4x1: NIRawImage = {
   info: {
-    format: "raw",
-    width: 2,
+    width: 4,
     height: 1,
-    channels: 4
+    channels: 3
   },
-  data: Buffer.from([255, 255, 255, 255, 0, 0, 0, 255])
+  data: Buffer.from([255, 0, 0, 255, 0, 0, 255, 0, 0, 255, 0, 0])
+};
+
+const rawImage2x4: NIRawImage = {
+  info: {
+    width: 2,
+    height: 4,
+    channels: 3
+  },
+  // prettier-ignore
+  data: Buffer.from([
+    0, 0, 0,   0, 0, 0,
+    0, 0, 0,   0, 0, 0,
+    0, 0, 0,   0, 0, 0,
+    0, 0, 0,   0, 0, 0
+  ])
 };
 
 const images = {
@@ -19,7 +33,8 @@ const images = {
   greenSticker: resolve(__dirname, "images/green-sticker.png"),
   sticker: resolve(__dirname, "images/sticker.png"),
   yellowGreenWithSticker: resolve(__dirname, "images/yellow-green+sticker.png"),
-  rawImage: mock
+  rawImage4x1,
+  rawImage2x4
 };
 
 export default images;
