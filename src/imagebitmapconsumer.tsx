@@ -2,16 +2,19 @@ import { NIRawImage, NodeImageBitmap } from "./imagebitmap";
 import { ICanvas, IImage } from "./interfaces";
 
 /**
+ * Type definition for canvas-cleave's Canvas implementation.
  * @public
  */
 export type NINodeCanvas = ICanvas & NodeImageBitmapConsumer;
 
 /**
+ * Type definition for canvas-cleave's Image implementation.
  * @public
  */
 export type NINodeImage = IImage & NodeImageBitmapConsumer;
 
 /**
+ * Abstract class to base {@link NodeImageBitmap} consumers on.
  * @public
  */
 export abstract class NodeImageBitmapConsumer {
