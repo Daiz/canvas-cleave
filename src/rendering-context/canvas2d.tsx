@@ -40,22 +40,6 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
     bitmap._drawImage.apply(bitmap, arguments);
   }
 
-  createImageData(data: IImageData): IImageData;
-  createImageData(width: number, height: number): IImageData;
-  createImageData(
-    widthOrData: number | IImageData,
-    height: number = 0
-  ): IImageData {
-    let width = 0;
-    if (typeof widthOrData === "number") {
-      width = widthOrData;
-    } else {
-      width = widthOrData.width;
-      height = widthOrData.height;
-    }
-    return new NodeImageData(width, height);
-  }
-
   getImageData(sx: number, sy: number, sw: number, sh: number): IImageData {
     const bitmap = this.canvas._getImageBitmap();
     return bitmap._getImageData(sx, sy, sw, sh);
@@ -75,5 +59,21 @@ export class NodeCanvasRenderingContext2D implements ICanvasRenderingContext2D {
     const bitmap = this.canvas._getImageBitmap();
     // @ts-ignore As we just pass arguments to the underlying implementation
     bitmap._putImageData.apply(bitmap, arguments);
+  }
+
+  createImageData(data: IImageData): IImageData;
+  createImageData(width: number, height: number): IImageData;
+  createImageData(
+    widthOrData: number | IImageData,
+    height: number = 0
+  ): IImageData {
+    let width = 0;
+    if (typeof widthOrData === "number") {
+      width = widthOrData;
+    } else {
+      width = widthOrData.width;
+      height = widthOrData.height;
+    }
+    return new NodeImageData(width, height);
   }
 }
