@@ -1,18 +1,14 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/api-extractor.schema.json",
-  "compiler": {
-    "configType": "tsconfig",
-    "rootFolder": "."
-  },
-  "project": {
-    "entryPointSourceFile": "lib/index.d.ts"
-  },
-  "apiReviewFile": {
+  "mainEntryPointFilePath": "<projectFolder>/lib/index.d.ts",
+  "apiReport": {
     "enabled": true,
-    "apiReviewFolder": "config"
+    "reportFolder": "<projectFolder>/config"
   },
-  "apiJsonFile": {
+  "docModel": {
     "enabled": true,
-    "outputFolder": "config"
+    "apiJsonFilePath": "<projectFolder>/config/<unscopedPackageName>.api.json"
+  },
+  "dtsRollup": {
+    "enabled": false
   }
 }
