@@ -6,12 +6,12 @@
     "moduleResolution": "node",
     "jsx": "react",
     "strict": true,
-    "outDir": "./lib",
+    "outDir": "../lib",
     "declaration": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src"],
-  "exclude": ["**/*.test.tsx"]
+  "include": ["../src"],
+  "exclude": ["../**/*.test.tsx"]
 }
