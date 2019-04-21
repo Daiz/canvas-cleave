@@ -2,6 +2,11 @@ export { NodeCanvas } from "./elements/canvas";
 export { NodeDocument } from "./elements/document";
 export { NodeImage } from "./elements/image";
 export { NIRawImage, NIRawImageInfo, NodeImageBitmap } from "./imagebitmap";
+export {
+  _NINodeCanvas,
+  _NINodeImage,
+  _NodeImageBitmapConsumer
+} from "./imagebitmapconsumer";
 export { NodeImageData } from "./imagedata";
 export {
   ICanvas,
