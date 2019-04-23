@@ -1,11 +1,10 @@
-import { NIRawImage, NodeImageBitmap } from "../imagebitmap";
+import { NodeImageBitmapConsumer } from "../imagebitmapconsumer";
 import { IImage } from "../interfaces";
 
 /**
  * @public
  */
-export class NodeImage implements IImage {
-  private $bitmap: NodeImageBitmap;
+export class NodeImage extends NodeImageBitmapConsumer implements IImage {
   private $width?: number;
   private $height?: number;
   private $complete: boolean = true;
@@ -69,21 +68,5 @@ export class NodeImage implements IImage {
         this.$height = undefined;
         break;
     }
-  }
-
-  constructor(input?: NodeImageBitmap | NIRawImage) {
-    if (NodeImageBitmap.isImageBitmap(input)) {
-      this.$bitmap = input;
-    } else {
-      this.$bitmap = new NodeImageBitmap(input);
-    }
-  }
-
-  _getImageBitmap(): NodeImageBitmap {
-    return this.$bitmap;
-  }
-
-  _setImageBitmap(bitmap: NodeImageBitmap): void {
-    this.$bitmap = bitmap;
   }
 }

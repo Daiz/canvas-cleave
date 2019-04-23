@@ -1,4 +1,3 @@
-import { NodeImage } from "./elements/image";
 import { NodeImageData } from "./imagedata";
 import { IImageBitmap, IImageData } from "./interfaces";
 
@@ -10,7 +9,7 @@ export interface NIRawImageInfo {
   /**
    * The format of the image.
    */
-  readonly format: "raw";
+  readonly format?: "raw";
   /**
    * The width of the image in pixels.
    */
@@ -24,13 +23,13 @@ export interface NIRawImageInfo {
    */
   readonly channels: 1 | 2 | 3 | 4;
   /**
-   * Does the image have premultiplied alpha? Should be always false as canvas-cleave does not support premultiplied alpha.
+   * Does the image have premultiplied alpha? If present, should always be false as canvas-cleave does not support premultiplied alpha.
    */
-  readonly premultiplied: false;
+  readonly premultiplied?: boolean;
   /**
-   * The size of the image in bytes. Equal to width * height * channels.
+   * The size of the image in bytes. If present, must be equal to width * height * channels.
    */
-  readonly size: number;
+  readonly size?: number;
 }
 /**
  * Node interface for passing around raw image data.
@@ -63,8 +62,14 @@ const YA = 1; // Y16 alpha
 
 const INVALID_RAW_IMAGE_CHANNELS_ERROR =
   "Raw image data must consist of 1-4 channels.";
+const INVALID_RAW_IMAGE_DIMENSIONS_ERROR =
+  "Image dimensions cannot be negative.";
 const INVALID_RAW_IMAGE_SIZE_ERROR =
   "Raw image data buffer size must match the value of width * height * channels provided in the info object.";
+const INVALID_RAW_IMAGE_SIZE_METADATA_ERROR =
+  "Raw image data buffer size must match the value of size provided in the info object.";
+const PREMULTIPLIED_ALPHA_NOT_SUPPORTED_ERROR =
+  "Premultiplied alpha is not supported by canvas-cleave.";
 const RGB24_SIZE_ERROR = "RGB24 pixel array must have exactly 3 values.";
 const RGB32_SIZE_ERROR = "RGB32 pixel array must have exactly 4 values.";
 const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
@@ -81,7 +86,7 @@ const RGB32_BLANK_PIXEL = new Uint8ClampedArray([0, 0, 0, 0]);
  */
 export class NodeImageBitmap implements IImageBitmap {
   static isImageBitmap(bitmap: any): bitmap is NodeImageBitmap {
-    if (bitmap._isImageBitmap) return true;
+    if (bitmap && bitmap._isImageBitmap) return true;
     return false;
   }
 
@@ -95,22 +100,15 @@ export class NodeImageBitmap implements IImageBitmap {
   private $rgb: Uint8ClampedArray;
   private $alpha: Uint8ClampedArray;
   private $hasAlpha: boolean = true;
-  private $closed: boolean = false;
 
   public readonly _isImageBitmap: true = true;
   public readonly _premultipliedAlpha: false = false;
 
-  close(): void {
-    this.$closed = true;
-  }
-
   get width(): number {
-    if (this.$closed) return 0;
     return this.$width;
   }
 
   get height(): number {
-    if (this.$closed) return 0;
     return this.$height;
   }
 
@@ -124,12 +122,10 @@ export class NodeImageBitmap implements IImageBitmap {
   }
 
   get _rgbData(): Uint8ClampedArray {
-    if (this.$closed) return EMPTY;
     return this.$rgb;
   }
 
   get _alphaData(): Uint8ClampedArray {
-    if (this.$closed) return EMPTY;
     return this.$alpha;
   }
 
@@ -144,8 +140,20 @@ export class NodeImageBitmap implements IImageBitmap {
     }
     const { data, info } = input;
 
+    if (info.width < 0 || info.height < 0) {
+      throw new Error(INVALID_RAW_IMAGE_DIMENSIONS_ERROR);
+    }
+
     if (data.length !== info.width * info.height * info.channels) {
       throw new Error(INVALID_RAW_IMAGE_SIZE_ERROR);
+    }
+
+    if (info.size && data.length !== info.size) {
+      throw new Error(INVALID_RAW_IMAGE_SIZE_METADATA_ERROR);
+    }
+
+    if (info.premultiplied != null && info.premultiplied === true) {
+      throw new Error(PREMULTIPLIED_ALPHA_NOT_SUPPORTED_ERROR);
     }
 
     this.$width = info.width;
@@ -193,6 +201,12 @@ export class NodeImageBitmap implements IImageBitmap {
     this.$alpha = alpha;
   }
 
+  /**
+   * Resize the bitmap. Resets all pixel values to zero.
+   * @param width - The new width of the bitmap.
+   * @param height - The new height of the bitmap.
+   * @internal
+   */
   _resize(width: number, height: number): void {
     width = width < 0 || width === Infinity ? 0 : width | 0;
     height = height < 0 || height === Infinity ? 0 : height | 0;
@@ -226,6 +240,12 @@ export class NodeImageBitmap implements IImageBitmap {
 
   // drawImage-related functions
 
+  /**
+   * Get the RGB values for the pixel at the specified coordinate. Returns an empty pixel if coordinates are out of bounds.
+   * @param x - The x coordinate of the pixel.
+   * @param y - The y coordiante of the pixel.
+   * @internal
+   */
   _getRGB(x: number, y: number): Uint8ClampedArray {
     // return the out of bounds pixel if attempting to get out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
@@ -236,6 +256,12 @@ export class NodeImageBitmap implements IImageBitmap {
     return this.$rgb.subarray(index * RGB24, index * RGB24 + RGB24);
   }
 
+  /**
+   * Get the alpha value for the pixel at the specified coordinate. Returns 0 or 255 (depending on if the bitmap has an alpha channel) if coordinates are out of bounds.
+   * @param x - The x coordinate of the pixel.
+   * @param y - The y coordinate of the pixel.
+   * @internal
+   */
   _getAlpha(x: number, y: number): number {
     // return transparent or opaque value if attempting to get out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
@@ -246,7 +272,23 @@ export class NodeImageBitmap implements IImageBitmap {
     return this._hasAlpha ? this.$alpha[index] : 255;
   }
 
+  /**
+   * Set the RGB values for the pixel at the specified coordinate. Does nothing if coordinates are out of bounds.
+   * @param x - The x coordinate of the pixel.
+   * @param y - The y coordinate of the pixel.
+   * @param rgb - The RGB values to set for the pixel.
+   * @internal
+   */
   _setRGB(x: number, y: number, rgb: Uint8ClampedArray): void;
+  /**
+   * Set the RGB values for the pixel at the specified coordinate. Does nothing of coordinates are out of bounds.
+   * @param x - The x coordinate of the pixel.
+   * @param y - The y coordinate of the pixel.
+   * @param r - The R value to set for the pixel.
+   * @param g - The G value to set for the pixel.
+   * @param b - The B value to set for the pixel.
+   * @internal
+   */
   _setRGB(x: number, y: number, r: number, g: number, b: number): void;
   _setRGB(
     x: number,
@@ -274,6 +316,13 @@ export class NodeImageBitmap implements IImageBitmap {
     }
   }
 
+  /**
+   * Set the alpha value for the pixel at the specified coordinates. Does nothing if coordinates are out of bounds.
+   * @param x - The x coordinate of the pixel.
+   * @param y - The y coordinate of the pixel.
+   * @param alpha - The alpha value to set for the pixel.
+   * @internal
+   */
   _setAlpha(x: number, y: number, alpha: number): void {
     if (!this._hasAlpha) return;
 
@@ -286,6 +335,13 @@ export class NodeImageBitmap implements IImageBitmap {
     this.$alpha[index] = alpha;
   }
 
+  /**
+   * Draw a pixel on the bitmap at the specified coordinates. Does nothing if coordinates are out of bounds.
+   * @param x - The x coordinate to draw the pixel to.
+   * @param y - The y coordinate to draw the pixel to.
+   * @param rgb - The RGB values of the pixel to draw.
+   * @param alpha - The alpha value of the pixel to draw.
+   */
   _drawPixel(
     x: number,
     y: number,
@@ -331,7 +387,37 @@ export class NodeImageBitmap implements IImageBitmap {
     }
   }
 
+  /**
+   * Draw an image to the bitmap at the specified coordinates.
+   * @param image - The image to draw.
+   * @param dx - The x coordinate to draw the image to.
+   * @param dy - The y coordinate to draw the image to.
+   * @internal
+   */
   _drawImage(image: NodeImageBitmap, dx: number, dy: number): void;
+  // part of the standard but not included here due to lack of resizing support
+  /*
+  _drawImage(
+    image: NodeImageBitmap,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number
+  ): void;
+  */
+  /**
+   * Draw an region of an image to the canvas at the specified coordinates.
+   * @param image - The image to draw.
+   * @param sx - The x coordinate of the source region.
+   * @param sy - The y coordinate of the source region.
+   * @param sw - The width of the source region. Can be negative to extend
+   * @param sh - The height of the source region. Can be negative to extend up
+   * @param dx - The x coordinate on the destination region.
+   * @param dy - The y coordinate of the destination region.
+   * @param dw - The width of the destination region. Must equal abs(sw).
+   * @param dh - The height of the destination region. Must equal abs(sh).
+   * @internal
+   */
   _drawImage(
     image: NodeImageBitmap,
     sx: number,
@@ -383,6 +469,12 @@ export class NodeImageBitmap implements IImageBitmap {
 
   // ImageData-related functions
 
+  /**
+   * Get the RGBA values for the pixel at the specified coordinates. Returns an empty pixel if out of bounds.
+   * @param x - The x coordinate of the pixel.
+   * @param y - The y coordinate of the pixel.
+   * @internal
+   */
   _getPixel(x: number, y: number): Uint8ClampedArray {
     // return a blank or black pixel if requested coordinates are out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
@@ -401,6 +493,13 @@ export class NodeImageBitmap implements IImageBitmap {
     return pixel;
   }
 
+  /**
+   * Set RGBA values for the pixel at the specified coordiantes. Does nothing if coordinates are out of bounds.
+   * @param x - The x coordinate of the pixel.
+   * @param y - The y coordinate of the pixel.
+   * @param pixel - The RGBA values to set for the pixel.
+   * @internal
+   */
   _setPixel(x: number, y: number, pixel: Uint8ClampedArray): void {
     // do nothing if trying to set a pixel out of bounds
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
@@ -419,15 +518,20 @@ export class NodeImageBitmap implements IImageBitmap {
     if (this._hasAlpha) this.$alpha[index] = pixel[A];
   }
 
+  /**
+   * Get {@link NodeImageData} for the defined region of the bitmap.
+   * @param sx - The x coordinate of the region.
+   * @param sy - The y coordinate of the region.
+   * @param width - The width of the region. Can be negative to extend left.
+   * @param height - The height of the region. Can be negative to extend up.
+   * @internal
+   */
   _getImageData(
     sx: number,
     sy: number,
     width: number,
     height: number
   ): IImageData {
-    if (sx < 0) sx += this.$width;
-    if (sy < 0) sy += this.$height;
-
     // transform left/top-extending rectangles (negative width/height)
     // into regular right/bottom-extending rectangles
     if (width < 0) {
@@ -455,7 +559,25 @@ export class NodeImageBitmap implements IImageBitmap {
     return new NodeImageData(width, height, data);
   }
 
+  /**
+   * Replace a region of the bitmap with the supplied ImageData.
+   * @param imageData - The ImageData to use for the replacement.
+   * @param dx - The x coordinate of the region.
+   * @param dy - The y coordinate of the region.
+   * @internal
+   */
   _putImageData(imageData: IImageData, dx: number, dy: number): void;
+  /**
+   * Replace a region of the bitmap with a region of the supplied ImageData.
+   * @param imageData - The ImageData to use for the replacement.
+   * @param dx - The x coordinate of the destination region.
+   * @param dy - The y coordinate of the destination region.
+   * @param dirtyX - The x coordinate of the source region. Default 0.
+   * @param dirtyY - The y coordinate of the source region. Default 0.
+   * @param dirtyWidth - The width of the source region. Default `ImageData.width`.
+   * @param dirtyHeight - The height of the source region. Default `ImageData.height`.
+   * @internal
+   */
   _putImageData(
     imageData: IImageData,
     dx: number,
@@ -477,11 +599,11 @@ export class NodeImageBitmap implements IImageBitmap {
     // TODO: implement
   }
 
-  _toImage(): NodeImage {
-    return new NodeImage(this);
-  }
-
-  _toRawImage(): NIRawImage {
+  /**
+   * Export the contents of the bitmap as a {@link NIRawImage}.
+   * @public
+   */
+  toRawImage(): NIRawImage {
     const channels = this._hasAlpha ? 4 : 3;
     const width = this.$width;
     const height = this.$height;

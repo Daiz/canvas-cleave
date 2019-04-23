@@ -47,10 +47,6 @@ export interface IImageBitmap {
    * The height of the image bitmap.
    */
   readonly height: number;
-  /**
-   * Disposes of the data associated with this image bitmap. The bitmap cannot be used afterwards.
-   */
-  close(): void;
 }
 
 /**
@@ -77,12 +73,6 @@ export interface IImageData {
  * @public
  */
 export type ICanvasImageSource = ICanvas | IImage | IImageBitmap;
-
-/**
- * A cross-environment type that covers the supported canvas rendering context types of the canvas.getContext function in both DOM (in HTMLCanvasElement) and canvas-cleave (in NodeCanvas).
- * @public
- */
-export type IRenderingContextType = "bitmaprenderer" | "2d";
 
 /**
  * A cross-environment interface that covers the method supported by both DOM (as document) and canvas-cleave (as document).
@@ -120,11 +110,6 @@ export interface ICanvas {
    * The height of the canvas.
    */
   height: number;
-  /**
-   * Get a image bitmap rendering context for the canvas.
-   * @param context - The context to request.
-   */
-  getContext(context: "bitmaprenderer"): IImageBitmapRenderingContext;
   /**
    * Get a 2D rendering context for the canvas.
    * @param context - The context to request.
@@ -178,7 +163,7 @@ export interface ICanvasRenderingContext2D {
   /**
    * Get ImageData for the defined region of the canvas.
    * @param sx - The x coordinate of the region.
-   * @param sy - The y coordiante of the region.
+   * @param sy - The y coordinate of the region.
    * @param sw - The width of the region. Can be negative to extend left.
    * @param sh - The height of the region. Can be negative to extend up.
    */

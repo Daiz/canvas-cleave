@@ -1,39 +1,25 @@
-import { NIRawImage, NodeImageBitmap } from "../imagebitmap";
-import {
-  ICanvas,
-  IRenderingContextOptions,
-  IRenderingContextType
-} from "../interfaces";
-import { NodeImageBitmapRenderingContext } from "../rendering-context/bitmap";
+import { NodeImageBitmapConsumer } from "../imagebitmapconsumer";
+import { ICanvas, IRenderingContextOptions } from "../interfaces";
 import { NodeCanvasRenderingContext2D } from "../rendering-context/canvas2d";
 
 export const DEFAULT_CANVAS_WIDTH = 0;
 export const DEFAULT_CANVAS_HEIGHT = 0;
 
 /**
+ * A limited Node implementation for DOM HTMLCanvasElement.
  * @public
  */
-export class NodeCanvas implements ICanvas {
-  private $bitmap: NodeImageBitmap;
-
-  constructor(bitmap?: NodeImageBitmap);
-  constructor(width: number, height: number);
-  constructor(
-    widthOrBitmap: number | NodeImageBitmap = DEFAULT_CANVAS_WIDTH,
-    height: number = DEFAULT_CANVAS_HEIGHT
-  ) {
-    if (typeof widthOrBitmap === "number") {
-      this.$bitmap = new NodeImageBitmap();
-      this.$bitmap._resize(widthOrBitmap, height);
-    } else {
-      this.$bitmap = widthOrBitmap;
-    }
-  }
-
+export class NodeCanvas extends NodeImageBitmapConsumer implements ICanvas {
+  /**
+   * The width of the canvas element.
+   */
   get width(): number {
     return this.$bitmap.width;
   }
 
+  /**
+   * The height of the canvas element.
+   */
   get height(): number {
     return this.$bitmap.height;
   }
@@ -50,35 +36,16 @@ export class NodeCanvas implements ICanvas {
     this.$bitmap._resize(this.$bitmap.width, value | 0);
   }
 
-  getContext(context: "bitmaprenderer"): NodeImageBitmapRenderingContext;
+  /**
+   * {@inheritDoc ICanvas.getContext}
+   */
   getContext(
     context: "2d",
     options?: IRenderingContextOptions
-  ): NodeCanvasRenderingContext2D;
-  getContext(
-    context: IRenderingContextType,
-    options?: IRenderingContextOptions
-  ): NodeImageBitmapRenderingContext | NodeCanvasRenderingContext2D {
-    switch (context) {
-      case "bitmaprenderer":
-        return new NodeImageBitmapRenderingContext(this);
-      case "2d":
-        if (options) {
-          this.$bitmap._hasAlpha = options.alpha;
-        }
-        return new NodeCanvasRenderingContext2D(this);
+  ): NodeCanvasRenderingContext2D {
+    if (options) {
+      this.$bitmap._hasAlpha = options.alpha;
     }
-  }
-
-  _getImageBitmap(): NodeImageBitmap {
-    return this.$bitmap;
-  }
-
-  _setImageBitmap(bitmap: NodeImageBitmap): void {
-    this.$bitmap = bitmap;
-  }
-
-  toRawImage(): NIRawImage {
-    return this.$bitmap._toRawImage();
+    return new NodeCanvasRenderingContext2D(this);
   }
 }

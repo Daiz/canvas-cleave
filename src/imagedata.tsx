@@ -2,6 +2,9 @@ import { IImageData } from "./interfaces";
 
 const RGB32 = 4;
 
+/**
+ * @public
+ */
 export class NodeImageData implements IImageData {
   readonly data: Uint8ClampedArray;
 
