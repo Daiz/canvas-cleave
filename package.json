@@ -2,41 +2,39 @@
   "name": "canvas-cleave",
   "version": "0.0.0",
   "description": "100% JS Node.js shim for HTML5 Canvas drawImage (without resizing)",
-  "main": "dist/canvas-cleave.min.js",
+  "main": "dist/canvas-cleave.js",
+  "module": "dist/canvas-cleave.mjs",
+  "unpkg": "dist/canvas-cleave.umd.js",
   "typings": "dist/canvas-cleave.d.ts",
   "tsdoc": {
     "tsdocFlavor": "AEDoc"
   },
-  "module": "lib/index.js",
   "scripts": {
     "test": "jest",
     "start": "jest --watch",
-    "build:lib": "rimraf lib && tsc --build config/tsconfig.lib.json",
-    "build:dist": "rimraf dist && webpack && api-extractor run --config config/api-extractor.dist.json",
-    "build": "npm run build:lib && npm run build:dist",
+    "build": "rimraf dist && microbundle --compress --target node && api-extractor run --config config/api-extractor.dist.json",
     "coverage": "jest --coverage",
-    "api-extractor": "npm run build:lib && api-extractor run --local"
+    "api-extractor": "microbundle --target node -f cjs && api-extractor run --local"
   },
   "author": "Daiz <taneli.vatanen@gmail.com>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.1.0",
-    "@types/jest": "^24.0.11",
+    "@microsoft/api-extractor": "^7.4.2",
+    "@types/jest": "^24.0.18",
     "@types/sharp": "^0.21.3",
     "awesome-typescript-loader": "^5.2.1",
-    "jest": "^24.7.1",
-    "prettier": "^1.17.0",
-    "rimraf": "^2.6.3",
+    "jest": "^24.9.0",
+    "microbundle": "^0.11.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^2.7.1",
     "sharp": "^0.21.3",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-no-circular-imports": "^0.6.2",
-    "typescript": "^3.4.4",
-    "typescript-tslint-plugin": "^0.1.2",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.0"
+    "typescript": "^3.6.3",
+    "typescript-tslint-plugin": "^0.1.2"
   }
 }
