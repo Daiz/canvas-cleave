@@ -18,6 +18,9 @@ export type NINodeImage = IImage & NodeImageBitmapConsumer;
  * @public
  */
 export abstract class NodeImageBitmapConsumer {
+  /**
+   * The underlying image bitmap of the consumer.
+   */
   protected $bitmap: NodeImageBitmap;
 
   /**
@@ -41,6 +44,7 @@ export abstract class NodeImageBitmapConsumer {
   }
 
   /**
+   * Set the underlying bitmap of the consumer.
    * @param bitmap - The bitmap to set the consumer's internal bitmap to.
    * @internal
    */

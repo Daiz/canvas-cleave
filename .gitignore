@@ -1,7 +1,7 @@
-node_modules
-lib
-tmp
-temp
-dist
-coverage
+node_modules/
+lib/
+tmp/
+temp/
+dist/
+coverage/
 /.rts2*

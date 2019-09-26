@@ -19,7 +19,9 @@ test("drawImage should call the implementation of the underlying bitmap", () => 
 });
 
 test("getImageData should call the implementation of the underlying bitmap", () => {
-  const [bitmap, bitmapRecord] = recordMethodCalls(new NodeImageBitmap());
+  const [bitmap, bitmapRecord] = recordMethodCalls(
+    new NodeImageBitmap(images.rawImage4x1)
+  );
   const canvas = new NodeCanvas(bitmap);
   const ctx = new NodeCanvasRenderingContext2D(canvas);
   ctx.getImageData(0, 0, 1, 1);
@@ -28,6 +30,7 @@ test("getImageData should call the implementation of the underlying bitmap", () 
 
 test("putImageData should call the implementation of the underlying bitmap", () => {
   const [bitmap, bitmapRecord] = recordMethodCalls(new NodeImageBitmap());
+  bitmap._resize(1, 1);
   const canvas = new NodeCanvas(bitmap);
   const ctx = new NodeCanvasRenderingContext2D(canvas);
   const idata = new NodeImageData(1, 1);

@@ -11,14 +11,14 @@ export const DEFAULT_CANVAS_HEIGHT = 0;
  */
 export class NodeCanvas extends NodeImageBitmapConsumer implements ICanvas {
   /**
-   * The width of the canvas element.
+   * {@inheritDoc ICanvas.width}
    */
   get width(): number {
     return this.$bitmap.width;
   }
 
   /**
-   * The height of the canvas element.
+   * {@inheritDoc ICanvas.height}
    */
   get height(): number {
     return this.$bitmap.height;

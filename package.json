@@ -1,9 +1,9 @@
 {
   "name": "canvas-cleave",
-  "version": "0.0.0",
+  "version": "0.9.0",
   "description": "100% JS Node.js shim for HTML5 Canvas drawImage (without resizing)",
   "main": "dist/canvas-cleave.js",
-  "module": "dist/canvas-cleave.mjs",
+  "module": "dist/canvas-cleave.esm.js",
   "unpkg": "dist/canvas-cleave.umd.js",
   "typings": "dist/canvas-cleave.d.ts",
   "tsdoc": {
@@ -13,14 +13,18 @@
     "test": "jest",
     "start": "jest --watch",
     "build": "rimraf dist && microbundle --compress --target node && api-extractor run --config config/api-extractor.dist.json",
+    "cleanup": "rimraf .rts2* && rimraf dist/src && rimraf dist/test",
     "coverage": "jest --coverage",
-    "api-extractor": "microbundle --target node -f cjs && api-extractor run --local"
+    "api-extractor": "microbundle --target node -f cjs && api-extractor run --local",
+    "api-documenter": "api-documenter markdown --input-folder config --output-folder docs",
+    "prepublish": "npm run coverage && npm run api-extractor && npm run api-documenter && npm run build && npm run cleanup"
   },
   "author": "Daiz <taneli.vatanen@gmail.com>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.4.7",
     "@microsoft/api-extractor": "^7.4.2",
     "@types/jest": "^24.0.18",
     "@types/sharp": "^0.21.3",

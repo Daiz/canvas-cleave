@@ -75,6 +75,11 @@ const RGB32_SIZE_ERROR = "RGB32 pixel array must have exactly 4 values.";
 const EMPTY_IMAGE_DATA_ERROR = "Cannot request empty image data.";
 const DRAW_IMAGE_NO_RESIZE_ERROR =
   "Resizing is not supported. Source and target draw rects must be equal in size.";
+const TOO_BIG_IMAGE_ERROR =
+  "Trying to create an NodeImageBitmap larger than the maximum allowed memory size (1GB). Try to keep your width & height under 16384 pixels.";
+const NO_INFINITY_ERROR = "No parameter can be Infinity.";
+// difference from spec: negative width/height not supported in various methods
+const NO_NEGATIVE_LENGTHS_ERROR = "Width and/or height cannot be negative.";
 
 const EMPTY = new Uint8ClampedArray(0);
 const RGB24_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0]);
@@ -82,14 +87,21 @@ const RGB32_BLACK_PIXEL = new Uint8ClampedArray([0, 0, 0, 255]);
 const RGB32_BLANK_PIXEL = new Uint8ClampedArray([0, 0, 0, 0]);
 
 /**
+ * A Node implementation for DOM ImageBitmap.
  * @public
  */
 export class NodeImageBitmap implements IImageBitmap {
+  /**
+   * Check if an object is an instance of NodeImageBitmap.
+   * @param bitmap - The object to check.
+   */
   static isImageBitmap(bitmap: any): bitmap is NodeImageBitmap {
     if (bitmap && bitmap._isImageBitmap) return true;
     return false;
   }
-
+  /**
+   * The maximum memory size of the bitmap.
+   */
   static readonly MAXIMUM_MEMORY_SIZE: number = 1024 * 1024 * 1024;
 
   private readonly $rgbOutOfBounds: Uint8ClampedArray = new Uint8ClampedArray(
@@ -101,17 +113,34 @@ export class NodeImageBitmap implements IImageBitmap {
   private $alpha: Uint8ClampedArray;
   private $hasAlpha: boolean = true;
 
+  /**
+   * Used for NodeImageBitmap.isImageBitmap checking.
+   * @internal
+   */
   public readonly _isImageBitmap: true = true;
+  /**
+   * NodeImageBitmap does not support premultiplied alpha.
+   * @internal
+   */
   public readonly _premultipliedAlpha: false = false;
 
+  /**
+   * The width of the image bitmap.
+   */
   get width(): number {
     return this.$width;
   }
 
+  /**
+   * The height of the image bitmap.
+   */
   get height(): number {
     return this.$height;
   }
 
+  /**
+   * Controls the image bitmap's alpha channel.
+   */
   get _hasAlpha(): boolean {
     return this.$hasAlpha;
   }
@@ -120,11 +149,16 @@ export class NodeImageBitmap implements IImageBitmap {
     this.$hasAlpha = value;
     if (!value && this.$alpha) this.$alpha.fill(255);
   }
-
+  /**
+   * The raw RGB data of the image bitmap.
+   */
   get _rgbData(): Uint8ClampedArray {
     return this.$rgb;
   }
 
+  /**
+   * The raw alpha data of the image bitmap.
+   */
   get _alphaData(): Uint8ClampedArray {
     return this.$alpha;
   }
@@ -217,9 +251,7 @@ export class NodeImageBitmap implements IImageBitmap {
     const alpha = this._hasAlpha ? 0 : 255;
 
     if (size * RGB32 > NodeImageBitmap.MAXIMUM_MEMORY_SIZE) {
-      throw new Error(
-        "Trying to create an NodeImageBitmap larger than the maximum allowed memory size (1GB). Try to keep your width & height under 16384 pixels."
-      );
+      throw new Error(TOO_BIG_IMAGE_ERROR);
     }
 
     this.$width = width;
@@ -252,6 +284,10 @@ export class NodeImageBitmap implements IImageBitmap {
       return this.$rgbOutOfBounds;
     }
 
+    // Convert input numbers to integers
+    x = x | 0;
+    y = y | 0;
+
     const index = y * this.$width + x;
     return this.$rgb.subarray(index * RGB24, index * RGB24 + RGB24);
   }
@@ -267,6 +303,10 @@ export class NodeImageBitmap implements IImageBitmap {
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return this._hasAlpha ? 0 : 255;
     }
+
+    // Convert input numbers to integers
+    x = x | 0;
+    y = y | 0;
 
     const index = y * this.$width + x;
     return this._hasAlpha ? this.$alpha[index] : 255;
@@ -302,6 +342,10 @@ export class NodeImageBitmap implements IImageBitmap {
       return;
     }
 
+    // Convert input numbers to integers
+    x = x | 0;
+    y = y | 0;
+
     const index = y * this.$width + x;
 
     if (typeof rOrRgb === "number") {
@@ -331,6 +375,10 @@ export class NodeImageBitmap implements IImageBitmap {
       return;
     }
 
+    // Convert input numbers to integers
+    x = x | 0;
+    y = y | 0;
+
     const index = y * this.$width + x;
     this.$alpha[index] = alpha;
   }
@@ -341,6 +389,7 @@ export class NodeImageBitmap implements IImageBitmap {
    * @param y - The y coordinate to draw the pixel to.
    * @param rgb - The RGB values of the pixel to draw.
    * @param alpha - The alpha value of the pixel to draw.
+   * @internal
    */
   _drawPixel(
     x: number,
@@ -352,6 +401,10 @@ export class NodeImageBitmap implements IImageBitmap {
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return;
     }
+
+    // Convert input numbers to integers
+    x = x | 0;
+    y = y | 0;
 
     if (rgb.length !== 3) {
       throw new Error(RGB24_SIZE_ERROR);
@@ -384,6 +437,72 @@ export class NodeImageBitmap implements IImageBitmap {
       const A = Aa + (Ab * (255 - Aa)) / 255;
       this._setRGB(x, y, R, G, B);
       this._setAlpha(x, y, A);
+    }
+  }
+
+  /**
+   * Replace a horizontal strip of pixels in the bitmap with a strip from an image.
+   * @param image - The image to source the strip from.
+   * @param sx - The x coordinate of the strip in the source image.
+   * @param sy - The y coordinate of the strip in the source image.
+   * @param dx - The x coordinate of the destination.
+   * @param dy - The y coordinate of the destination.
+   * @param sw - The amount of pixels in the strip.
+   * @internal
+   */
+  _setRow(
+    image: NodeImageBitmap,
+    sx: number,
+    sy: number,
+    dx: number,
+    dy: number,
+    sw: number
+  ): void {
+    // do nothing if attempting to set out of bounds
+    if (dx + sw <= 0 || dx >= this.$width || dy < 0 || dy >= this.$height) {
+      return;
+    }
+
+    // do nothing if sourcing out of bounds
+    if (sx + sw <= 0 || sx >= image.width || sy < 0 || sy >= image.height) {
+      return;
+    }
+
+    // Convert input numbers to integers
+    sx = sx | 0;
+    sy = sy | 0;
+    dx = dx | 0;
+    dy = dy | 0;
+    sw = sw | 0;
+
+    // to avoid replacing previous row pixels, increase sx & dx if necessary
+    if (sx < 0) {
+      sw += sx;
+      sx = 0;
+    }
+
+    if (dx < 0) {
+      sw += dx;
+      dx = 0;
+    }
+
+    // to avoid replacing next row pixels, limit width if necessary
+    if (sx + sw > image.width) sw = image.width - sx;
+    if (dx + sw > this.$width) sw = this.$width - dx;
+
+    const srcIdx = sy * image.width + sx;
+
+    const rgbRow = image._rgbData.subarray(
+      srcIdx * RGB24,
+      (srcIdx + sw) * RGB24
+    );
+
+    const dstIdx = dy * this.$width + dx;
+    this.$rgb.set(rgbRow, dstIdx * RGB24);
+
+    if (this._hasAlpha) {
+      const alphaRow = image._alphaData.subarray(srcIdx, srcIdx + sw);
+      this.$alpha.set(alphaRow, dstIdx);
     }
   }
 
@@ -449,20 +568,51 @@ export class NodeImageBitmap implements IImageBitmap {
     sh = sh || image.height;
     dw = dw || sw;
     dh = dh || sh;
+
+    if (sw < 0 || sh < 0 || dw < 0 || dh < 0) {
+      throw new Error(NO_NEGATIVE_LENGTHS_ERROR);
+    }
+
     if (dw !== sw || dh !== sh) {
       // non-standard error since we don't handle resizing
       throw new Error(DRAW_IMAGE_NO_RESIZE_ERROR);
     }
-    // TODO: drawRow optimization for non-alpha images
+
+    // do nothing if attempting to draw completely out of bounds
+    if (
+      dx + dw <= 0 ||
+      dx >= this.$width ||
+      dy + dh <= 0 ||
+      dy >= this.$height
+    ) {
+      return;
+    }
+
+    // Convert input numbers to integers
+    sx = sx | 0;
+    sy = sy | 0;
+    sw = sw | 0;
+    sh = sh | 0;
+    dx = dx | 0;
+    dy = dy | 0;
+    dw = dw | 0;
+    dh = dh | 0;
+
     for (let y = 0; y < sh; ++y) {
-      if (y < 0) continue;
-      if (y >= this.$height) break;
-      for (let x = 0; x < sw; ++x) {
-        if (x < 0) continue;
-        if (x >= this.$width) break;
-        const rgb = image._getRGB(sx + x, sy + y);
-        const alpha = image._getAlpha(sx + x, sy + y);
-        this._drawPixel(dx + x, dy + y, rgb, alpha);
+      if (dy + y < 0) continue;
+      if (dy + y >= this.$height) break;
+      if (!image._hasAlpha) {
+        // draw image by setting full rows at at time
+        this._setRow(image, sx, sy + y, dx, dy + y, sw);
+      } else {
+        // draw each individual pixel
+        for (let x = 0; x < sw; ++x) {
+          if (dx + x < 0) continue;
+          if (dx + x >= this.$width) break;
+          const rgb = image._getRGB(sx + x, sy + y);
+          const alpha = image._getAlpha(sx + x, sy + y);
+          this._drawPixel(dx + x, dy + y, rgb, alpha);
+        }
       }
     }
   }
@@ -482,6 +632,10 @@ export class NodeImageBitmap implements IImageBitmap {
         this._hasAlpha ? RGB32_BLANK_PIXEL : RGB32_BLACK_PIXEL
       );
     }
+
+    // Convert input numbers to integers
+    x = x | 0;
+    y = y | 0;
 
     const index = y * this.$width + x;
 
@@ -505,6 +659,10 @@ export class NodeImageBitmap implements IImageBitmap {
     if (x < 0 || y < 0 || x >= this.$width || y >= this.$height) {
       return;
     }
+
+    // Convert input numbers to integers
+    x = x | 0;
+    y = y | 0;
 
     if (pixel.length !== 4) {
       throw new Error(RGB32_SIZE_ERROR);
@@ -543,6 +701,12 @@ export class NodeImageBitmap implements IImageBitmap {
       height *= -1;
     }
 
+    // Convert input numbers to integers
+    sx = sx | 0;
+    sy = sy | 0;
+    width = width | 0;
+    height = height | 0;
+
     if (width === 0 || height === 0) {
       throw new Error(EMPTY_IMAGE_DATA_ERROR);
     }
@@ -553,7 +717,7 @@ export class NodeImageBitmap implements IImageBitmap {
     for (let y = sy; y < sy + height; ++y) {
       for (let x = sx; x < sx + width; ++x) {
         data.set(this._getPixel(x, y), index * RGB32);
-        index += RGB32;
+        ++index;
       }
     }
     return new NodeImageData(width, height, data);
@@ -596,7 +760,70 @@ export class NodeImageBitmap implements IImageBitmap {
     dirtyWidth?: number,
     dirtyHeight?: number
   ): void {
-    // TODO: implement
+    // if short call form is used, fill in the rest of the data
+    dirtyX = dirtyX || 0;
+    dirtyY = dirtyY || 0;
+    dirtyWidth = dirtyWidth || imageData.width;
+    dirtyHeight = dirtyHeight || imageData.height;
+
+    if (
+      [dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight].indexOf(Infinity) > -1
+    ) {
+      throw new Error(NO_INFINITY_ERROR);
+    }
+
+    if (dirtyWidth < 0 || dirtyHeight < 0) {
+      throw new Error(NO_NEGATIVE_LENGTHS_ERROR);
+    }
+
+    dx = dx | 0;
+    dy = dy | 0;
+    let sx = dirtyX | 0;
+    let sy = dirtyY | 0;
+    let sw = dirtyWidth | 0;
+    let sh = dirtyHeight | 0;
+
+    // do nothing if attempting to put completely out of bounds
+    if (
+      dx + sw <= 0 ||
+      dx >= this.$width ||
+      dy + sh <= 0 ||
+      dy >= this.$height
+    ) {
+      return;
+    }
+
+    // don't draw out of bitmap's bounds
+    if (dy < 0) {
+      sh += dy;
+      sy -= dy;
+      dy = 0;
+    }
+
+    if (dy + sh > this.$height) {
+      sh = this.$height - dy;
+    }
+
+    if (dx < 0) {
+      sw += dx;
+      sx -= dx;
+      dx = 0;
+    }
+
+    if (dx + sw > this.$width) {
+      sw = this.$width - dx;
+    }
+
+    for (let y = 0; y < sh; ++y) {
+      for (let x = 0; x < sw; ++x) {
+        const srcIdx = (sy + y) * imageData.width + (sx + x);
+        const pixel = imageData.data.subarray(
+          srcIdx * RGB32,
+          (srcIdx + 1) * RGB32
+        );
+        this._setPixel(dx + x, dy + y, pixel);
+      }
+    }
   }
 
   /**

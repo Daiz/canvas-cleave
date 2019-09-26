@@ -1,0 +1,3561 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.4.2",
+    "schemaVersion": 1003,
+    "oldestForwardsCompatibleVersion": 1001
+  },
+  "kind": "Package",
+  "canonicalReference": "canvas-cleave!",
+  "docComment": "",
+  "name": "canvas-cleave",
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "canvas-cleave!",
+      "name": "",
+      "members": [
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!ICanvas:interface",
+          "docComment": "/**\n * A cross-environment interface for canvas objects that covers the properties and methods supported by both DOM (as HTMLCanvasElement) and canvas-cleave (as NodeCanvas).\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ICanvas "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "ICanvas",
+          "members": [
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!ICanvas#getContext:member(1)",
+              "docComment": "/**\n * Get a 2D rendering context for the canvas.\n *\n * @param context - The context to request.\n *\n * @param options - Optional options for the context.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getContext(context: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"2d\""
+                },
+                {
+                  "kind": "Content",
+                  "text": ", options?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IRenderingContextOptions",
+                  "canonicalReference": "canvas-cleave!IRenderingContextOptions:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ICanvasRenderingContext2D",
+                  "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "context",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "options",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                }
+              ],
+              "name": "getContext"
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!ICanvas#height:member",
+              "docComment": "/**\n * The height of the canvas.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!ICanvas#width:member",
+              "docComment": "/**\n * The width of the canvas.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "canvas-cleave!ICanvasImageSource:type",
+          "docComment": "/**\n * A cross-environment type that covers the supported image source input types of the canvas.drawImage function in both DOM (in HTMLCanvasElement) and canvas-cleave (in NodeCanvas).\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type ICanvasImageSource = "
+            },
+            {
+              "kind": "Reference",
+              "text": "ICanvas",
+              "canonicalReference": "canvas-cleave!ICanvas:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "IImage",
+              "canonicalReference": "canvas-cleave!IImage:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "IImageBitmap",
+              "canonicalReference": "canvas-cleave!IImageBitmap:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "ICanvasImageSource",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D:interface",
+          "docComment": "/**\n * A cross-environment interface for 2D canvas rendering context objects that covers the properties and methods supported by both DOM (as CanvasRenderingContext2D) and canvas-cleave (as NodeCanvasRenderingContext2D)\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ICanvasRenderingContext2D "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "ICanvasRenderingContext2D",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D#canvas:member",
+              "docComment": "/**\n * Reference to the canvas that this rendering context is for.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly canvas: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ICanvas",
+                  "canonicalReference": "canvas-cleave!ICanvas:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "canvas",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D#drawImage:member(1)",
+              "docComment": "/**\n * Draw an image to the canvas at the specified coordinates.\n *\n * @param image - The image to draw.\n *\n * @param dx - The x coordinate to draw the image to.\n *\n * @param dy - The y coordinate to draw the image to.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "drawImage(image: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ICanvasImageSource",
+                  "canonicalReference": "canvas-cleave!ICanvasImageSource:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "image",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                }
+              ],
+              "name": "drawImage"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D#drawImage:member(2)",
+              "docComment": "/**\n * Draw a region of an image to the canvas at the specified coordinates.\n *\n * @param image - The image to draw.\n *\n * @param sx - The x coordinate of the source region.\n *\n * @param sy - The y coordinate of the source region.\n *\n * @param sw - The width of the source region. Can be negative to extend left.\n *\n * @param sh - The height of the source region. Can be negative to extend up.\n *\n * @param dx - The x coordinate on the destination region.\n *\n * @param dy - The y coordinate of the destination region.\n *\n * @param dw - The width of the destination region. Must equal abs(sw).\n *\n * @param dh - The height of the destination region. Must equal abs(sh).\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "drawImage(image: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ICanvasImageSource",
+                  "canonicalReference": "canvas-cleave!ICanvasImageSource:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sw: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sh: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dw: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dh: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 19,
+                "endIndex": 20
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 2,
+              "parameters": [
+                {
+                  "parameterName": "image",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "sx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "sy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                },
+                {
+                  "parameterName": "sw",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 7,
+                    "endIndex": 8
+                  }
+                },
+                {
+                  "parameterName": "sh",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 9,
+                    "endIndex": 10
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 11,
+                    "endIndex": 12
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 13,
+                    "endIndex": 14
+                  }
+                },
+                {
+                  "parameterName": "dw",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 15,
+                    "endIndex": 16
+                  }
+                },
+                {
+                  "parameterName": "dh",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 17,
+                    "endIndex": 18
+                  }
+                }
+              ],
+              "name": "drawImage"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D#getImageData:member(1)",
+              "docComment": "/**\n * Get ImageData for the defined region of the canvas.\n *\n * @param sx - The x coordinate of the region.\n *\n * @param sy - The y coordinate of the region.\n *\n * @param sw - The width of the region. Can be negative to extend left.\n *\n * @param sh - The height of the region. Can be negative to extend up.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getImageData(sx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sw: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sh: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 10
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "sx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "sy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "sw",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                },
+                {
+                  "parameterName": "sh",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 7,
+                    "endIndex": 8
+                  }
+                }
+              ],
+              "name": "getImageData"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D#putImageData:member(1)",
+              "docComment": "/**\n * Replace a region of the canvas with the supplied ImageData.\n *\n * @param data - The ImageData to use for the replacement.\n *\n * @param dx - The x coordinate of the region.\n *\n * @param dy - The y coordinate of the region.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "putImageData(data: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "data",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                }
+              ],
+              "name": "putImageData"
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D#putImageData:member(2)",
+              "docComment": "/**\n * Replace a region of the canvas with a region of the supplied ImageData.\n *\n * @param data - The ImageData to use for the replacement.\n *\n * @param dx - The x coordinate of the destination region.\n *\n * @param dy - The y coordinate of the destination region.\n *\n * @param dirtyX - The x coordinate of the source region. Default 0.\n *\n * @param dirtyY - The y coordinate of the source region. Default 0.\n *\n * @param dirtyWidth - The width of the source region. Default `ImageData.width`.\n *\n * @param dirtyHeight - The height of the source region. Default `ImageData.height`.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "putImageData(data: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyX: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyY: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyWidth: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyHeight: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 15,
+                "endIndex": 16
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 2,
+              "parameters": [
+                {
+                  "parameterName": "data",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                },
+                {
+                  "parameterName": "dirtyX",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 7,
+                    "endIndex": 8
+                  }
+                },
+                {
+                  "parameterName": "dirtyY",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 9,
+                    "endIndex": 10
+                  }
+                },
+                {
+                  "parameterName": "dirtyWidth",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 11,
+                    "endIndex": 12
+                  }
+                },
+                {
+                  "parameterName": "dirtyHeight",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 13,
+                    "endIndex": 14
+                  }
+                }
+              ],
+              "name": "putImageData"
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!IDocument:interface",
+          "docComment": "/**\n * A cross-environment interface that covers the method supported by both DOM (as document) and canvas-cleave (as document).\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface IDocument "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "IDocument",
+          "members": [
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!IDocument#createElement:member(1)",
+              "docComment": "/**\n * Create an element. Only \"canvas\" is supported by both DOM and canvas-cleave.\n *\n * @param el - The name of the element to create.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "createElement(el: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"canvas\""
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ICanvas",
+                  "canonicalReference": "canvas-cleave!ICanvas:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "el",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "createElement"
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!IImage:interface",
+          "docComment": "/**\n * A cross-environment interface for image objects that covers the properties supported by both DOM (as HTMLImageElement) and canvas-cleave (as NodeImage).\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface IImage "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "IImage",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImage#complete:member",
+              "docComment": "/**\n * Is the image loaded?\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly complete: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "complete",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImage#height:member",
+              "docComment": "/**\n * The DOM display height of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImage#naturalHeight:member",
+              "docComment": "/**\n * The actual height of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly naturalHeight: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "naturalHeight",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImage#naturalWidth:member",
+              "docComment": "/**\n * The actual width of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly naturalWidth: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "naturalWidth",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!IImage#removeAttribute:member(1)",
+              "docComment": "/**\n * Unset the DOM width and height parameters.\n *\n * @param attr - The name of the attribute to remove. \"width\" or \"height\".\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "removeAttribute(attr: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"width\" | \"height\""
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "attr",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "removeAttribute"
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImage#src:member",
+              "docComment": "/**\n * The source URL of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "src: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "src",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImage#width:member",
+              "docComment": "/**\n * The DOM display width of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!IImageBitmap:interface",
+          "docComment": "/**\n * A cross-environment interface for image bitmap objects that covers the properties and methods supported by both DOM (as ImageBitmap) and canvas-cleave (as NodeImageBitmap).\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface IImageBitmap "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "IImageBitmap",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImageBitmap#height:member",
+              "docComment": "/**\n * The height of the image bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImageBitmap#width:member",
+              "docComment": "/**\n * The width of the image bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!IImageBitmapRenderingContext:interface",
+          "docComment": "/**\n * A cross-environment interface for canvas image bitmap rendering context objects that covers the properties and methods supported by both DOM (as ImageBitmapRenderingContext) and canvas-cleave (as NodeImageBitmapRenderingContext)\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface IImageBitmapRenderingContext "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "IImageBitmapRenderingContext",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImageBitmapRenderingContext#canvas:member",
+              "docComment": "/**\n * Reference to the canvas that this rendering context is for.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly canvas: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ICanvas",
+                  "canonicalReference": "canvas-cleave!ICanvas:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "canvas",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "MethodSignature",
+              "canonicalReference": "canvas-cleave!IImageBitmapRenderingContext#transferFromImageBitmap:member(1)",
+              "docComment": "/**\n * Replace the contents of the canvas with the contents of an image bitmap.\n *\n * @param bitmap - The bitmap to replace the canvas contents with.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "transferFromImageBitmap(bitmap: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageBitmap",
+                  "canonicalReference": "canvas-cleave!IImageBitmap:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "bitmap",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "transferFromImageBitmap"
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!IImageData:interface",
+          "docComment": "/**\n * A cross-environment interface for image data objects that covers the properties supported by both DOM (as ImageData) and canvas-cleave (as NodeImageData).\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface IImageData "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "IImageData",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImageData#data:member",
+              "docComment": "/**\n * The actual RGB32 image data. The length of the data is width * height * 4 (bytes per pixel).\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly data: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint8ClampedArray",
+                  "canonicalReference": "!Uint8ClampedArray:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "data",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImageData#height:member",
+              "docComment": "/**\n * The height of the image data in pixels.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IImageData#width:member",
+              "docComment": "/**\n * The width of the image data in pixels.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "canvas-cleave!IRenderingContext:type",
+          "docComment": "/**\n * A cross-environment type that covers the types of canvas rendering contexts returned by the supported canvas.getContext calls.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type IRenderingContext = "
+            },
+            {
+              "kind": "Reference",
+              "text": "ICanvasRenderingContext2D",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "IImageBitmapRenderingContext",
+              "canonicalReference": "canvas-cleave!IImageBitmapRenderingContext:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "IRenderingContext",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!IRenderingContextOptions:interface",
+          "docComment": "/**\n * A cross-environment interface that covers the properties supported for options when requesting a 2D canvas rendering context in both DOM (in HTMLCanvasElement.getContext) and canvas-cleave (in NodeCanvas.getContext).\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface IRenderingContextOptions "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "IRenderingContextOptions",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!IRenderingContextOptions#alpha:member",
+              "docComment": "/**\n * Enable/disable alpha channel for the canvas depending on your needs.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "alpha: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "alpha",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "canvas-cleave!NINodeCanvas:type",
+          "docComment": "/**\n * Type definition for canvas-cleave's Canvas implementation.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type NINodeCanvas = "
+            },
+            {
+              "kind": "Reference",
+              "text": "ICanvas",
+              "canonicalReference": "canvas-cleave!ICanvas:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " & "
+            },
+            {
+              "kind": "Reference",
+              "text": "NodeImageBitmapConsumer",
+              "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NINodeCanvas",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "canvas-cleave!NINodeCanvasImageSource:type",
+          "docComment": "/**\n * Node interface for {@link NodeCanvasRenderingContext2D} input image type support.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type NINodeCanvasImageSource = "
+            },
+            {
+              "kind": "Reference",
+              "text": "NINodeCanvas",
+              "canonicalReference": "canvas-cleave!NINodeCanvas:type"
+            },
+            {
+              "kind": "Content",
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "NINodeImage",
+              "canonicalReference": "canvas-cleave!NINodeImage:type"
+            },
+            {
+              "kind": "Content",
+              "text": " | "
+            },
+            {
+              "kind": "Reference",
+              "text": "NodeImageBitmap",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NINodeCanvasImageSource",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "canvas-cleave!NINodeImage:type",
+          "docComment": "/**\n * Type definition for canvas-cleave's Image implementation.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type NINodeImage = "
+            },
+            {
+              "kind": "Reference",
+              "text": "IImage",
+              "canonicalReference": "canvas-cleave!IImage:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " & "
+            },
+            {
+              "kind": "Reference",
+              "text": "NodeImageBitmapConsumer",
+              "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NINodeImage",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!NIRawImage:interface",
+          "docComment": "/**\n * Node interface for passing around raw image data.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface NIRawImage "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NIRawImage",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImage#data:member",
+              "docComment": "/**\n * The raw image data. Length should be equal to info.size.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly data: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Buffer",
+                  "canonicalReference": "!Buffer:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "data",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImage#info:member",
+              "docComment": "/**\n * The raw image info. Refer to {@link NIRawImageInfo} for details.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly info: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NIRawImageInfo",
+                  "canonicalReference": "canvas-cleave!NIRawImageInfo:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "info",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "canvas-cleave!NIRawImageInfo:interface",
+          "docComment": "/**\n * Node interface for raw image information.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface NIRawImageInfo "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NIRawImageInfo",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImageInfo#channels:member",
+              "docComment": "/**\n * The channel count of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly channels: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "1 | 2 | 3 | 4"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "channels",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImageInfo#format:member",
+              "docComment": "/**\n * The format of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly format?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"raw\""
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "format",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImageInfo#height:member",
+              "docComment": "/**\n * The height of the image in pixels.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImageInfo#premultiplied:member",
+              "docComment": "/**\n * Does the image have premultiplied alpha? If present, should always be false as canvas-cleave does not support premultiplied alpha.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly premultiplied?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "premultiplied",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImageInfo#size:member",
+              "docComment": "/**\n * The size of the image in bytes. If present, must be equal to width * height * channels.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly size?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "size",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "canvas-cleave!NIRawImageInfo#width:member",
+              "docComment": "/**\n * The width of the image in pixels.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "canvas-cleave!NodeCanvas:class",
+          "docComment": "/**\n * A limited Node implementation for DOM HTMLCanvasElement.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class NodeCanvas extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "NodeImageBitmapConsumer",
+              "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            },
+            {
+              "kind": "Content",
+              "text": "implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "ICanvas",
+              "canonicalReference": "canvas-cleave!ICanvas:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NodeCanvas",
+          "members": [
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvas#getContext:member(1)",
+              "docComment": "/**\n * Get a 2D rendering context for the canvas.\n *\n * @param context - The context to request.\n *\n * @param options - Optional options for the context.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getContext(context: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"2d\""
+                },
+                {
+                  "kind": "Content",
+                  "text": ", options?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IRenderingContextOptions",
+                  "canonicalReference": "canvas-cleave!IRenderingContextOptions:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NodeCanvasRenderingContext2D",
+                  "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "context",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "options",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                }
+              ],
+              "name": "getContext"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeCanvas#height:member",
+              "docComment": "/**\n * The height of the canvas.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeCanvas#width:member",
+              "docComment": "/**\n * The width of the canvas.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": [
+            {
+              "startIndex": 4,
+              "endIndex": 6
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D:class",
+          "docComment": "/**\n * A limited Node implementation for DOM CanvasRenderingContext2D.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class NodeCanvasRenderingContext2D implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "ICanvasRenderingContext2D",
+              "canonicalReference": "canvas-cleave!ICanvasRenderingContext2D:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NodeCanvasRenderingContext2D",
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D:constructor(1)",
+              "docComment": "/**\n * Constructs a new instance of the `NodeCanvasRenderingContext2D` class\n *\n * @param canvas - Reference to the canvas that this rendering context is for.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(\n    canvas: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NINodeCanvas",
+                  "canonicalReference": "canvas-cleave!NINodeCanvas:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "canvas",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#canvas:member",
+              "docComment": "/**\n * Reference to the canvas that this rendering context is for.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly canvas: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NINodeCanvas",
+                  "canonicalReference": "canvas-cleave!NINodeCanvas:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "canvas",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#createImageData:member(1)",
+              "docComment": "/**\n * Create empty ImageData with dimensions copied from provided ImageData.\n *\n * @param data - The reference ImageData to copy the dimensions of.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "createImageData(data: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "data",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "createImageData"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#createImageData:member(2)",
+              "docComment": "/**\n * Create empty ImageData with the provided dimensions.\n *\n * @param width - The width of the ImageData.\n *\n * @param height - The height of the ImageData.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "createImageData(width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 2,
+              "parameters": [
+                {
+                  "parameterName": "width",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "height",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                }
+              ],
+              "name": "createImageData"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#drawImage:member(1)",
+              "docComment": "/**\n * Draw an image to the canvas at the specified coordinates.\n *\n * @param image - The image to draw.\n *\n * @param dx - The x coordinate to draw the image to.\n *\n * @param dy - The y coordinate to draw the image to.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "drawImage(image: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NINodeCanvasImageSource",
+                  "canonicalReference": "canvas-cleave!NINodeCanvasImageSource:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "image",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                }
+              ],
+              "name": "drawImage"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#drawImage:member(2)",
+              "docComment": "/**\n * Draw a region of an image to the canvas at the specified coordinates.\n *\n * @param image - The image to draw.\n *\n * @param sx - The x coordinate of the source region.\n *\n * @param sy - The y coordinate of the source region.\n *\n * @param sw - The width of the source region. Can be negative to extend left.\n *\n * @param sh - The height of the source region. Can be negative to extend up.\n *\n * @param dx - The x coordinate on the destination region.\n *\n * @param dy - The y coordinate of the destination region.\n *\n * @param dw - The width of the destination region. Must equal abs(sw).\n *\n * @param dh - The height of the destination region. Must equal abs(sh).\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "drawImage(image: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NINodeCanvasImageSource",
+                  "canonicalReference": "canvas-cleave!NINodeCanvasImageSource:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sw: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sh: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dw: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dh: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 19,
+                "endIndex": 20
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 2,
+              "parameters": [
+                {
+                  "parameterName": "image",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "sx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "sy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                },
+                {
+                  "parameterName": "sw",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 7,
+                    "endIndex": 8
+                  }
+                },
+                {
+                  "parameterName": "sh",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 9,
+                    "endIndex": 10
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 11,
+                    "endIndex": 12
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 13,
+                    "endIndex": 14
+                  }
+                },
+                {
+                  "parameterName": "dw",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 15,
+                    "endIndex": 16
+                  }
+                },
+                {
+                  "parameterName": "dh",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 17,
+                    "endIndex": 18
+                  }
+                }
+              ],
+              "name": "drawImage"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#getImageData:member(1)",
+              "docComment": "/**\n * Get ImageData for the defined region of the canvas.\n *\n * @param sx - The x coordinate of the region.\n *\n * @param sy - The y coordinate of the region.\n *\n * @param sw - The width of the region. Can be negative to extend left.\n *\n * @param sh - The height of the region. Can be negative to extend up.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getImageData(sx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sw: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", sh: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 9,
+                "endIndex": 10
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "sx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "sy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "sw",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                },
+                {
+                  "parameterName": "sh",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 7,
+                    "endIndex": 8
+                  }
+                }
+              ],
+              "name": "getImageData"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#putImageData:member(1)",
+              "docComment": "/**\n * Replace a region of the canvas with the supplied ImageData.\n *\n * @param data - The ImageData to use for the replacement.\n *\n * @param dx - The x coordinate of the region.\n *\n * @param dy - The y coordinate of the region.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "putImageData(imageData: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "imageData",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                }
+              ],
+              "name": "putImageData"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeCanvasRenderingContext2D#putImageData:member(2)",
+              "docComment": "/**\n * Replace a region of the canvas with a region of the supplied ImageData.\n *\n * @param data - The ImageData to use for the replacement.\n *\n * @param dx - The x coordinate of the destination region.\n *\n * @param dy - The y coordinate of the destination region.\n *\n * @param dirtyX - The x coordinate of the source region. Default 0.\n *\n * @param dirtyY - The y coordinate of the source region. Default 0.\n *\n * @param dirtyWidth - The width of the source region. Default `ImageData.width`.\n *\n * @param dirtyHeight - The height of the source region. Default `ImageData.height`.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "putImageData(imageData: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "IImageData",
+                  "canonicalReference": "canvas-cleave!IImageData:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dx: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dy: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyX: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyY: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyWidth: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", dirtyHeight: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 15,
+                "endIndex": 16
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 2,
+              "parameters": [
+                {
+                  "parameterName": "imageData",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "dx",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "dy",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                },
+                {
+                  "parameterName": "dirtyX",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 7,
+                    "endIndex": 8
+                  }
+                },
+                {
+                  "parameterName": "dirtyY",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 9,
+                    "endIndex": 10
+                  }
+                },
+                {
+                  "parameterName": "dirtyWidth",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 11,
+                    "endIndex": 12
+                  }
+                },
+                {
+                  "parameterName": "dirtyHeight",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 13,
+                    "endIndex": 14
+                  }
+                }
+              ],
+              "name": "putImageData"
+            }
+          ],
+          "implementsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "canvas-cleave!NodeDocument:class",
+          "docComment": "/**\n * A limited Node implementation for the DOM Document to enable cross-environment creation of `canvas` elements using `document.createElement(\"canvas\")`.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class NodeDocument implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "IDocument",
+              "canonicalReference": "canvas-cleave!IDocument:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NodeDocument",
+          "members": [
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeDocument#createElement:member(1)",
+              "docComment": "/**\n * Create an element. Only \"canvas\" is supported by this implementation.\n *\n * @param el - The name of the element to be created. Must be \"canvas\".\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "createElement(el: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"canvas\""
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NodeCanvas",
+                  "canonicalReference": "canvas-cleave!NodeCanvas:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "el",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "createElement"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeDocument.eject:member(1)",
+              "docComment": "/**\n * Reverses the NodeDocument injection from {@link NodeDocument.inject} by undefining the global.document variable if it's an instance of {@link NodeDocument}.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "static eject(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": true,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "eject"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeDocument.inject:member(1)",
+              "docComment": "/**\n * Injects an instance of NodeDocument into the global object as \"document\" if one doesn't exist already (ie. it does nothing in the browser nor on subsequent calls).\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "static inject(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": true,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "inject"
+            }
+          ],
+          "implementsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "canvas-cleave!NodeImage:class",
+          "docComment": "/**\n * A limited Node implementation for DOM HTMLImageElement.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class NodeImage extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "NodeImageBitmapConsumer",
+              "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer:class"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            },
+            {
+              "kind": "Content",
+              "text": "implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "IImage",
+              "canonicalReference": "canvas-cleave!IImage:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NodeImage",
+          "members": [
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImage#complete:member",
+              "docComment": "/**\n * Is the image loaded?\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly complete: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "complete",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImage#height:member",
+              "docComment": "/**\n * The DOM display height of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImage#naturalHeight:member",
+              "docComment": "/**\n * The actual height of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly naturalHeight: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "naturalHeight",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImage#naturalWidth:member",
+              "docComment": "/**\n * The actual width of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly naturalWidth: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "naturalWidth",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeImage#removeAttribute:member(1)",
+              "docComment": "/**\n * Unset the DOM width and height parameters.\n *\n * @param attr - The name of the attribute to remove. \"width\" or \"height\".\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "removeAttribute(attr: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "\"width\" | \"height\""
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "attr",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "removeAttribute"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImage#src:member",
+              "docComment": "/**\n * The source URL of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "src: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "src",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImage#width:member",
+              "docComment": "/**\n * The DOM display width of the image.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            }
+          ],
+          "extendsTokenRange": {
+            "startIndex": 1,
+            "endIndex": 3
+          },
+          "implementsTokenRanges": [
+            {
+              "startIndex": 4,
+              "endIndex": 6
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "canvas-cleave!NodeImageBitmap:class",
+          "docComment": "/**\n * A Node implementation for DOM ImageBitmap.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class NodeImageBitmap implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "IImageBitmap",
+              "canonicalReference": "canvas-cleave!IImageBitmap:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NodeImageBitmap",
+          "members": [
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap#_alphaData:member",
+              "docComment": "/**\n * The raw alpha data of the image bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly _alphaData: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint8ClampedArray",
+                  "canonicalReference": "!Uint8ClampedArray:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "_alphaData",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap#_hasAlpha:member",
+              "docComment": "/**\n * Controls the image bitmap's alpha channel.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "_hasAlpha: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "_hasAlpha",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap#_rgbData:member",
+              "docComment": "/**\n * The raw RGB data of the image bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly _rgbData: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint8ClampedArray",
+                  "canonicalReference": "!Uint8ClampedArray:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "_rgbData",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Constructor",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap:constructor(1)",
+              "docComment": "/**\n * Constructs a new instance of the `NodeImageBitmap` class\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(input?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NIRawImage",
+                  "canonicalReference": "canvas-cleave!NIRawImage:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "input",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap#height:member",
+              "docComment": "/**\n * The height of the image bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap.isImageBitmap:member(1)",
+              "docComment": "/**\n * Check if an object is an instance of NodeImageBitmap.\n *\n * @param bitmap - The object to check.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "static isImageBitmap(bitmap: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "any"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "bitmap",
+                  "canonicalReference": "canvas-cleave!~bitmap"
+                },
+                {
+                  "kind": "Content",
+                  "text": " is "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NodeImageBitmap",
+                  "canonicalReference": "canvas-cleave!NodeImageBitmap:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": true,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 6
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "bitmap",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "isImageBitmap"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap.MAXIMUM_MEMORY_SIZE:member",
+              "docComment": "/**\n * The maximum memory size of the bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "static readonly MAXIMUM_MEMORY_SIZE: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "MAXIMUM_MEMORY_SIZE",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": true
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap#toRawImage:member(1)",
+              "docComment": "/**\n * Export the contents of the bitmap as a {@link NIRawImage}.\n *\n * @public\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toRawImage(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NIRawImage",
+                  "canonicalReference": "canvas-cleave!NIRawImage:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "toRawImage"
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageBitmap#width:member",
+              "docComment": "/**\n * The width of the image bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            }
+          ],
+          "implementsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer:class",
+          "docComment": "/**\n * Abstract class to base {@link NodeImageBitmap} consumers on.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare abstract class NodeImageBitmapConsumer "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NodeImageBitmapConsumer",
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer:constructor(1)",
+              "docComment": "/**\n * Create a new bitmap consumer.\n *\n * @param input - Input value for initializing the consumer's bitmap.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(input?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NodeImageBitmap",
+                  "canonicalReference": "canvas-cleave!NodeImageBitmap:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NIRawImage",
+                  "canonicalReference": "canvas-cleave!NIRawImage:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "input",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 4
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer#$bitmap:member",
+              "docComment": "/**\n * The underlying image bitmap of the consumer.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "protected $bitmap: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NodeImageBitmap",
+                  "canonicalReference": "canvas-cleave!NodeImageBitmap:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "$bitmap",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "canvas-cleave!NodeImageBitmapConsumer#toRawImage:member(1)",
+              "docComment": "/**\n * Export the contents of the underlying bitmap as a {@link NIRawImage}.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "toRawImage(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "NIRawImage",
+                  "canonicalReference": "canvas-cleave!NIRawImage:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "toRawImage"
+            }
+          ],
+          "implementsTokenRanges": []
+        },
+        {
+          "kind": "Class",
+          "canonicalReference": "canvas-cleave!NodeImageData:class",
+          "docComment": "/**\n * A Node implementation of DOM ImageData.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare class NodeImageData implements "
+            },
+            {
+              "kind": "Reference",
+              "text": "IImageData",
+              "canonicalReference": "canvas-cleave!IImageData:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "NodeImageData",
+          "members": [
+            {
+              "kind": "Constructor",
+              "canonicalReference": "canvas-cleave!NodeImageData:constructor(1)",
+              "docComment": "/**\n * Constructs a new instance of the `NodeImageData` class\n *\n * @param width - The width of the image data in pixels.\n *\n * @param height - The height of the image data in pixels.\n *\n * @param data - Optional initial RGB32 image data.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "constructor(\n    width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", \n    height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", data?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint8ClampedArray",
+                  "canonicalReference": "!Uint8ClampedArray:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ");"
+                }
+              ],
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "width",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "parameterName": "height",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 3,
+                    "endIndex": 4
+                  }
+                },
+                {
+                  "parameterName": "data",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 5,
+                    "endIndex": 6
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageData#data:member",
+              "docComment": "/**\n * The actual RGB32 image data. The length of the data is width * height * 4 (bytes per pixel).\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly data: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Uint8ClampedArray",
+                  "canonicalReference": "!Uint8ClampedArray:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "data",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageData#height:member",
+              "docComment": "/**\n * The height of the image data in pixels.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly height: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "height",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            },
+            {
+              "kind": "Property",
+              "canonicalReference": "canvas-cleave!NodeImageData#width:member",
+              "docComment": "/**\n * The width of the image data in pixels.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "readonly width: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "releaseTag": "Public",
+              "name": "width",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isStatic": false
+            }
+          ],
+          "implementsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

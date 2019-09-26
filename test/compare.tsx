@@ -49,6 +49,5 @@ export async function isSimilar(
       ++distance;
     }
   }
-
   return distance <= threshold;
 }
