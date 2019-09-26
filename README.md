@@ -15,7 +15,7 @@ Say we have the following images:
 And we want to merge them such that we have the right side of tile 1 side-by-side with tile 2. We can achieve this with the following code:
 
 ```typescript
-// tile.js (universal)
+// tile.ts (universal)
 import { ICanvasImageSource, IDocument } from "canvas-cleave";
 
 // limit document features to what is supported by both browsers and canvas-cleave
@@ -41,7 +41,7 @@ export function tile(tile1: ICanvasImageSource, tile2: ICanvasImageSource) {
 ```
 
 ```typescript
-// main.js (node)
+// main.ts (node)
 import { NodeDocument } from "canvas-cleave";
 import { loadImage, saveImage } from "./helpers";
 import { tile } from "./tile";
@@ -61,13 +61,56 @@ async function main() {
 main();
 ```
 
+```typescript
+// helpers.ts
+import sharp from "sharp";
+import { NIRawImage, NodeCanvas, NodeImageBitmap } from "canvas-cleave";
+
+const LOAD_IMAGE_OPTS = {
+  resolveWithObject: true as true
+};
+
+function isRawImage(input: any): input is NIRawImage {
+  if (
+    input.info &&
+    typeof input.info.width === "number" &&
+    typeof input.info.height === "number" &&
+    typeof input.info.channels === "number" &&
+    input.data instanceof Buffer &&
+    input.data.length ===
+      input.info.width * input.info.height * input.info.channels
+  )
+    return true;
+  return false;
+}
+
+export async function loadImage(source: string): Promise<NodeImageBitmap> {
+  const rawImage = (await sharp(source)
+    .raw()
+    .toBuffer(LOAD_IMAGE_OPTS)) as NIRawImage;
+  const bitmap = new NodeImageBitmap(rawImage);
+  return bitmap;
+}
+
+export async function saveImage(
+  target: string,
+  rawImage: NIRawImage | NodeImageBitmap | NodeCanvas
+): Promise<sharp.OutputInfo> {
+  if (!isRawImage(rawImage)) rawImage = rawImage.toRawImage();
+  const { data, info } = rawImage;
+  return await sharp(data, { raw: info })
+    .png()
+    .toFile(target);
+}
+```
+
 And by running the function we have our final result:
 
 ![](test/images/readme-output.png)
 
 ## So what exactly can I do with this?
 
-An absolutely minimal shim for Node.js that enables you to use the following HTML5 Canvas image drawing methods (with additional limitations - see below for details).
+A minimal shim for Node.js that enables you to use the following HTML5 Canvas image drawing methods (with additional limitations - see below for details).
 
 ```typescript
 CanvasRenderingContext2D.drawImage(
@@ -89,11 +132,15 @@ CanvasRenderingContext2D.drawImage(
 ): void;
 ```
 
-To achieve this, this module contains extremely minimal shims for `Image`, `Canvas`, `ImageData` and `CanvasRenderingContext2D`. See full API documentation for details on what exactly is implemented (spoilers: it isn't much).
+To achieve this, this module contains small shims for `Image`, `Canvas`, `ImageData` and `CanvasRenderingContext2D`. [See full API documentation for details on what exactly is implemented](https://github.com/Daiz/canvas-cleave/blob/master/docs/canvas-cleave.md), though for cross-environment purposes you are most likely interested in the [full interfaces that `canvas-cleave` provides.](https://github.com/Daiz/canvas-cleave/blob/master/docs/canvas-cleave.md#interfaces)
 
 ## So what are those `drawImage` limitations you mentioned?
 
 - Resizing isn't supported. `sWidth` and `sHeight` must match `dWidth` and `dHeight`.
+
+## Loading and saving images
+
+To keep things dependency-free, `canvas-cleave` does not include any means to actually load image files from disk or anywhere else by itself. It is recommended that you use [sharp](https://github.com/lovell/sharp) for this purpose - see the `helpers.js` above to get started - generally speaking, the various key functions in the library can take `NIRawImage` as input, which is convenienty what sharp provides with it raw metadata-including output.
 
 ## Why does this even exist?
 
