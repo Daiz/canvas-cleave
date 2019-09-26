@@ -17,7 +17,7 @@
     "coverage": "jest --coverage",
     "api-extractor": "microbundle --target node -f cjs && api-extractor run --local",
     "api-documenter": "api-documenter markdown --input-folder config --output-folder docs",
-    "prepublish": "npm run coverage && npm run api-extractor && npm run api-documenter && npm run build && npm run cleanup"
+    "prepublishOnly": "npm run coverage && npm run api-extractor && npm run api-documenter && npm run build && npm run cleanup"
   },
   "author": "Daiz <taneli.vatanen@gmail.com>",
   "license": "UNLICENSED",
