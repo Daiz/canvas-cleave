@@ -1,6 +1,6 @@
 {
   "name": "canvas-cleave",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "100% JS Node.js shim for HTML5 Canvas drawImage (without resizing)",
   "main": "dist/canvas-cleave.js",
   "module": "dist/canvas-cleave.esm.js",
